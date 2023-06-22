@@ -1,0 +1,28 @@
+{
+    "anims": [
+        {
+            "key": "bullet",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "bullet",
+                    "frame": "nairan_-_rocket_0"
+                },
+                {
+                    "key": "bullet",
+                    "frame": "nairan_-_rocket_1"
+                },
+                {
+                    "key": "bullet",
+                    "frame": "nairan_-_rocket_2"
+                },
+                {
+                    "key": "bullet",
+                    "frame": "nairan_-_rocket_3"
+                }
+            ]
+        }
+    ]
+}

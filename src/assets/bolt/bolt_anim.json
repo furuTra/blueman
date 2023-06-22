@@ -1,0 +1,32 @@
+{
+    "anims": [
+        {
+            "key": "bolt",
+            "type": "frames",
+            "repeat": -1,
+            "frameRate": 12,
+            "frames": [
+                {
+                    "key": "bolt",
+                    "frame": "nairan_-_bolt_0"
+                },
+                {
+                    "key": "bolt",
+                    "frame": "nairan_-_bolt_1"
+                },
+                {
+                    "key": "bolt",
+                    "frame": "nairan_-_bolt_2"
+                },
+                {
+                    "key": "bolt",
+                    "frame": "nairan_-_bolt_3"
+                },
+                {
+                    "key": "bolt",
+                    "frame": "nairan_-_bolt_4"
+                }
+            ]
+        }
+    ]
+}

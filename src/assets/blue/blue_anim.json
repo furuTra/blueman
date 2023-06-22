@@ -1,0 +1,144 @@
+{
+  "anims": [
+    {
+      "key": "blue_death",
+      "type": "frames",
+      "repeat": -1,
+      "frameRate": 12,
+      "frames": [
+        {
+          "key": "blue",
+          "frame": "players_blue_x2_40"
+        },
+        {
+          "key": "blue",
+          "frame": "players_blue_x2_41"
+        },
+        {
+          "key": "blue",
+          "frame": "players_blue_x2_42"
+        },
+        {
+          "key": "blue",
+          "frame": "players_blue_x2_43"
+        },
+        {
+          "key": "blue",
+          "frame": "players_blue_x2_44"
+        },
+        {
+          "key": "blue",
+          "frame": "players_blue_x2_45"
+        },
+        {
+          "key": "blue",
+          "frame": "players_blue_x2_46"
+        }
+      ]
+    },
+    {
+      "key": "blue_attack",
+      "type": "frames",
+      "repeat": -1,
+      "frameRate": 12,
+      "frames": [
+        {
+          "key": "blue",
+          "frame": "players_blue_x2_32"
+        },
+        {
+          "key": "blue",
+          "frame": "players_blue_x2_33"
+        },
+        {
+          "key": "blue",
+          "frame": "players_blue_x2_34"
+        },
+        {
+          "key": "blue",
+          "frame": "players_blue_x2_35"
+        }
+      ]
+    },
+    {
+      "key": "blue_move",
+      "type": "frames",
+      "repeat": -1,
+      "frameRate": 12,
+      "frames": [
+        {
+          "key": "blue",
+          "frame": "players_blue_x2_24"
+        },
+        {
+          "key": "blue",
+          "frame": "players_blue_x2_25"
+        },
+        {
+          "key": "blue",
+          "frame": "players_blue_x2_26"
+        },
+        {
+          "key": "blue",
+          "frame": "players_blue_x2_27"
+        }
+      ]
+    },
+    {
+      "key": "blue_reload",
+      "type": "frames",
+      "repeat": -1,
+      "frameRate": 12,
+      "frames": [
+        {
+          "key": "blue",
+          "frame": "players_blue_x2_16"
+        },
+        {
+          "key": "blue",
+          "frame": "players_blue_x2_17"
+        },
+        {
+          "key": "blue",
+          "frame": "players_blue_x2_18"
+        },
+        {
+          "key": "blue",
+          "frame": "players_blue_x2_19"
+        },
+        {
+          "key": "blue",
+          "frame": "players_blue_x2_20"
+        }
+      ]
+    },
+    {
+      "key": "blue_talk",
+      "type": "frames",
+      "repeat": -1,
+      "frameRate": 12,
+      "frames": [
+        {
+          "key": "blue",
+          "frame": "players_blue_x2_8"
+        },
+        {
+          "key": "blue",
+          "frame": "players_blue_x2_9"
+        }
+      ]
+    },
+    {
+      "key": "blue_idle",
+      "type": "frames",
+      "repeat": -1,
+      "frameRate": 12,
+      "frames": [
+        {
+          "key": "blue",
+          "frame": "players_blue_x2_0"
+        }
+      ]
+    }
+  ]
+}

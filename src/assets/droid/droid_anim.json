@@ -1,0 +1,212 @@
+{
+  "anims": [
+    {
+      "key": "droid_death",
+      "type": "frames",
+      "repeat": -1,
+      "frameRate": 12,
+      "frames": [
+        {
+          "key": "droid",
+          "frame": "droid03death_0"
+        },
+        {
+          "key": "droid",
+          "frame": "droid03death_1"
+        },
+        {
+          "key": "droid",
+          "frame": "droid03death_2"
+        },
+        {
+          "key": "droid",
+          "frame": "droid03death_3"
+        },
+        {
+          "key": "droid",
+          "frame": "droid03death_4"
+        },
+        {
+          "key": "droid",
+          "frame": "droid03death_5"
+        },
+        {
+          "key": "droid",
+          "frame": "droid03death_6"
+        },
+        {
+          "key": "droid",
+          "frame": "droid03death_7"
+        },
+        {
+          "key": "droid",
+          "frame": "droid03death_8"
+        },
+        {
+          "key": "droid",
+          "frame": "droid03death_9"
+        },
+        {
+          "key": "droid",
+          "frame": "droid03death_10"
+        }
+      ]
+    },
+    {
+      "key": "droid_countdown",
+      "type": "frames",
+      "repeat": -1,
+      "frameRate": 12,
+      "frames": [
+        {
+          "key": "droid",
+          "frame": "droid03countdown_0"
+        },
+        {
+          "key": "droid",
+          "frame": "droid03countdown_1"
+        },
+        {
+          "key": "droid",
+          "frame": "droid03countdown_2"
+        },
+        {
+          "key": "droid",
+          "frame": "droid03countdown_3"
+        }
+      ]
+    },
+    {
+      "key": "droid_hurt",
+      "type": "frames",
+      "repeat": -1,
+      "frameRate": 12,
+      "frames": [
+        {
+          "key": "droid",
+          "frame": "droid03hurt_0"
+        },
+        {
+          "key": "droid",
+          "frame": "droid03hurt_1"
+        },
+        {
+          "key": "droid",
+          "frame": "droid03hurt_2"
+        },
+        {
+          "key": "droid",
+          "frame": "droid03hurt_3"
+        }
+      ]
+    },
+    {
+      "key": "droid_attack",
+      "type": "frames",
+      "repeat": -1,
+      "frameRate": 16,
+      "frames": [
+        {
+          "key": "droid",
+          "frame": "droid03attack_0"
+        },
+        {
+          "key": "droid",
+          "frame": "droid03attack_1"
+        },
+        {
+          "key": "droid",
+          "frame": "droid03attack_2"
+        },
+        {
+          "key": "droid",
+          "frame": "droid03attack_3"
+        },
+        {
+          "key": "droid",
+          "frame": "droid03attack_4"
+        },
+        {
+          "key": "droid",
+          "frame": "droid03attack_5"
+        },
+        {
+          "key": "droid",
+          "frame": "droid03attack_6"
+        },
+        {
+          "key": "droid",
+          "frame": "droid03attack_7"
+        },
+        {
+          "key": "droid",
+          "frame": "droid03attack_8"
+        }
+      ]
+    },
+    {
+      "key": "droid_move",
+      "type": "frames",
+      "repeat": -1,
+      "frameRate": 12,
+      "frames": [
+        {
+          "key": "droid",
+          "frame": "droid3move_0"
+        },
+        {
+          "key": "droid",
+          "frame": "droid3move_1"
+        },
+        {
+          "key": "droid",
+          "frame": "droid3move_2"
+        },
+        {
+          "key": "droid",
+          "frame": "droid3move_3"
+        },
+        {
+          "key": "droid",
+          "frame": "droid3move_4"
+        },
+        {
+          "key": "droid",
+          "frame": "droid3move_5"
+        },
+        {
+          "key": "droid",
+          "frame": "droid3move_6"
+        },
+        {
+          "key": "droid",
+          "frame": "droid3move_7"
+        }
+      ]
+    },
+    {
+      "key": "droid_idle",
+      "type": "frames",
+      "repeat": -1,
+      "frameRate": 12,
+      "frames": [
+        {
+          "key": "droid",
+          "frame": "droid03idle_0"
+        },
+        {
+          "key": "droid",
+          "frame": "droid03idle_1"
+        },
+        {
+          "key": "droid",
+          "frame": "droid03idle_2"
+        },
+        {
+          "key": "droid",
+          "frame": "droid03idle_3"
+        }
+      ]
+    }
+  ]
+}

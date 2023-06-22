@@ -1,0 +1,528 @@
+{
+    "frames": [
+        {
+            "filename": "droid03idle_0",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 0,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03idle_1",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 48,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03idle_2",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 0,
+                "y": 48
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03idle_3",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 48,
+                "y": 48
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid3move_0",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 96,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid3move_1",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 96,
+                "y": 48
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid3move_2",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 0,
+                "y": 96
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid3move_3",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 48,
+                "y": 96
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid3move_4",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 96,
+                "y": 96
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid3move_5",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 144,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid3move_6",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 144,
+                "y": 48
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid3move_7",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 144,
+                "y": 96
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03attack_0",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 0,
+                "y": 144
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03attack_1",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 48,
+                "y": 144
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03attack_2",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 96,
+                "y": 144
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03attack_3",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 144,
+                "y": 144
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03attack_4",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 192,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03attack_5",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 192,
+                "y": 48
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03attack_6",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 192,
+                "y": 96
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03attack_7",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 192,
+                "y": 144
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03attack_8",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 0,
+                "y": 192
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03hurt_0",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 48,
+                "y": 192
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03hurt_1",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 96,
+                "y": 192
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03hurt_2",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 144,
+                "y": 192
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03hurt_3",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 192,
+                "y": 192
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03countdown_0",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 240,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03countdown_1",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 240,
+                "y": 48
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03countdown_2",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 240,
+                "y": 96
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03countdown_3",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 240,
+                "y": 144
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03death_0",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 240,
+                "y": 192
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03death_1",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 0,
+                "y": 240
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03death_2",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 48,
+                "y": 240
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03death_3",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 96,
+                "y": 240
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03death_4",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 144,
+                "y": 240
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03death_5",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 192,
+                "y": 240
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03death_6",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 240,
+                "y": 240
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03death_7",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 288,
+                "y": 0
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03death_8",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 288,
+                "y": 48
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03death_9",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 288,
+                "y": 96
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        },
+        {
+            "filename": "droid03death_10",
+            "frame": {
+                "w": 48,
+                "h": 48,
+                "x": 288,
+                "y": 144
+            },
+            "anchor": {
+                "x": 0.5,
+                "y": 0.5
+            }
+        }
+    ],
+    "meta": {
+        "description": "Atlas generado con Atlas Packer Gamma V2",
+        "web": "https://gammafp.github.io/atlas-packer-phaser/"
+    }
+}
