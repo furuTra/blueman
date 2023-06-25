@@ -30,16 +30,20 @@ export default class BattleScene extends Phaser.Scene {
   }
 
   init() {
-    Phaser.GameObjects.GameObjectFactory.register('bulletPool', function () {
-      const group = new BulletPool(this.scene);
-      this.updateList.add(group);
-      return group;
-    });
-    Phaser.GameObjects.GameObjectFactory.register('enemyPool', function () {
-      const group = new EnemyPool(this.scene);
-      this.updateList.add(group);
-      return group;
-    });
+    Phaser.GameObjects.GameObjectFactory.register(
+      'bulletPool',
+      function (this: Phaser.GameObjects.GameObjectFactory) {
+        const group = new BulletPool(this.scene);
+        return group;
+      }
+    );
+    Phaser.GameObjects.GameObjectFactory.register(
+      'enemyPool',
+      function (this: Phaser.GameObjects.GameObjectFactory) {
+        const group = new EnemyPool(this.scene);
+        return group;
+      }
+    );
   }
 
   private createCamera() {
@@ -110,24 +114,28 @@ export default class BattleScene extends Phaser.Scene {
       );
   }
 
-  update(time: number, _delta: number): void {
+  update(time: number, delta: number): void {
     if (typeof this.player === 'undefined') return;
-    this.player.update();
+    this.player.update(delta);
 
     Phaser.Actions.IncX(this.enemyGroup!.getChildren(), -0.5);
 
     this.bulletGroup!.children.iterate((bullet) => {
-      if (bullet.x <= 0 || bullet.y <= 0) {
-        this.bulletGroup?.destroyBullet(bullet);
-      }
-      if (bullet.x > this.worldWidthEnd || bullet.y > this.worldHeightEnd) {
-        this.bulletGroup?.destroyBullet(bullet);
+      if (bullet instanceof Phaser.Physics.Matter.Sprite) {
+        if (bullet.x <= 0 || bullet.y <= 0) {
+          this.bulletGroup?.destroyBullet(bullet);
+        }
+        if (bullet.x > this.worldWidthEnd || bullet.y > this.worldHeightEnd) {
+          this.bulletGroup?.destroyBullet(bullet);
+        }
       }
     });
 
     this.enemyGroup?.children.iterate((enemy) => {
-      if (enemy.x < 16) {
-        this.enemyGroup?.despawn(enemy);
+      if (enemy instanceof Phaser.Physics.Matter.Sprite) {
+        if (enemy.x < 16) {
+          this.enemyGroup?.despawn(enemy);
+        }
       }
     });
 
