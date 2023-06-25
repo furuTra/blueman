@@ -7,8 +7,6 @@ interface IState {
 }
 
 export default class StateMachine {
-  // private id?: string;
-
   private states = new Map<string, IState>();
 
   private previousState?: IState;
@@ -21,9 +19,8 @@ export default class StateMachine {
 
   private changeStateQueue: string[] = [];
 
-  constructor(context?: object, id?: string) {
+  constructor(context?: object) {
     this.context = context;
-    this.id = id;
   }
 
   get previousStateName() {

@@ -59,7 +59,7 @@ export default class Player implements IPlayer {
       D: this.body.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
     };
 
-    this.stateMachine = new StateMachine(this, 'player');
+    this.stateMachine = new StateMachine(this);
     this.stateMachine
       .addState('move', {
         onEnter: () => {
