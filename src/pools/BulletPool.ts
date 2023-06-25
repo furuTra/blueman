@@ -45,15 +45,12 @@ export default class BulletPool extends Phaser.GameObjects.Group implements IBul
     const speed = Phaser.Math.GetSpeed(10000, 1);
     const incXSpeed = speed * -this.inc.x;
     const incYSpeed = speed * -this.inc.y;
-    bullet.setVelocity(incXSpeed, incYSpeed);
-    bullet.setScale(2.5, 2.5);
-    bullet.setFixedRotation();
+    bullet.setScale(2.5, 2.5).setFixedRotation().setVelocity(incXSpeed, incYSpeed);
     bullet.anims.play({ key }, true);
 
     const spawnExisting = this.countActive(false) > 0;
     if (spawnExisting) {
-      bullet.setActive(true);
-      bullet.setVisible(true);
+      bullet.setActive(true).setVisible(true);
       bullet.world.add(bullet.body);
     }
 
@@ -61,9 +58,7 @@ export default class BulletPool extends Phaser.GameObjects.Group implements IBul
   }
 
   destroyBullet(bullet: IBullet) {
-    bullet.setActive(false);
-    bullet.setVisible(false);
-    bullet.removeInteractive();
+    bullet.setActive(false).setVisible(false).removeInteractive();
     bullet.world.remove(bullet.body);
   }
 }

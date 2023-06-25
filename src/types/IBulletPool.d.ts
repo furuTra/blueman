@@ -7,8 +7,8 @@ declare interface IBulletPool extends Phaser.GameObjects.Group {
 
 declare interface IEnemyPool extends Phaser.GameObjects.Group {
   spawn(pos: TPos, key?: string);
-  despawn(enemy: IEnemy);
-  reduceHP(enemy: IEnemy);
+  despawn(enemy: Phaser.Physics.Matter.Sprite);
+  reduceHP(enemy: Phaser.Physics.Matter.Sprite);
 }
 
 declare namespace Phaser.GameObjects {
