@@ -1,28 +1,7 @@
-import HealthBar from '../libs/HealthBar';
-
 export default class Droid extends Phaser.Physics.Matter.Sprite implements IBody {
   private _animPrefix: TAnim;
 
   readonly animKeyPrefix = 'droid';
-
-  private _nameTag: Phaser.GameObjects.Text;
-
-  removeName() {
-    this._nameTag.setActive(false);
-    this._nameTag.setVisible(false);
-  }
-
-  showName() {
-    this._nameTag.setText(`droid${Math.floor(this.x)}`)
-    this._nameTag.setActive(true);
-    this._nameTag.setVisible(true);
-  }
-
-  private _health: IHealthBar;
-
-  get health(): IHealthBar {
-    return this._health;
-  }
 
   get animKey(): string {
     return `${this.animKeyPrefix}_${this.animPrefix}`;
@@ -74,12 +53,6 @@ export default class Droid extends Phaser.Physics.Matter.Sprite implements IBody
     });
     this.setExistingBody(boxBody);
     this._animPrefix = 'idle';
-    this._nameTag = scene.add.text(x, y, `droid${Math.floor(this.x)}`, {
-      font: '12px Arial',
-      color: '#2f4f4f',
-    });
-
-    this._health = new HealthBar(scene, { x: -32, y: -32 });
   }
 
   static preload(scene: Phaser.Scene) {
@@ -98,7 +71,5 @@ export default class Droid extends Phaser.Physics.Matter.Sprite implements IBody
 
   preUpdate(time: number, delta: number): void {
     super.preUpdate(time, delta);
-    this._nameTag.setPosition(this.x - 16, this.y - 16);
-    this._health.setPosition({ x: this.x, y: this.y });
   }
 }
