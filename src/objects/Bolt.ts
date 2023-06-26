@@ -1,0 +1,19 @@
+import Phaser from 'phaser';
+
+export default class Bolt extends Phaser.Physics.Matter.Sprite implements IBullet {
+  constructor(scene: Phaser.Scene, x: number, y: number, key: string) {
+    const options: Phaser.Types.Physics.Matter.MatterBodyConfig = {
+      label: 'bolt',
+      isSensor: true,
+      friction: 0,
+      frictionAir: 0,
+    };
+    super(scene.matter.world, x, y, key, key, options);
+    this.setData({ attack: 3 });
+  }
+
+  static preload(scene: Phaser.Scene): void {
+    scene.load.atlas('bolt', './src/assets/bolt/bolt.png', './src/assets/bolt/bolt_atlas.json');
+    scene.load.animation('bolt', './src/assets/bolt/bolt_anim.json');
+  }
+}
