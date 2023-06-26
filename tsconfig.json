@@ -20,7 +20,7 @@
       "~/*": ["./*"],
       "@assets/*": ["./assets"]
     },
-    "typeRoots": ["node_modules/@types", "node_modules/phaser/types"]
+    "typeRoots": ["node_modules/@types", "node_modules/phaser/types", "src/types"]
   },
   "include": ["src", "./.eslintrc.json"],
   "exclude": ["node_modules"]
