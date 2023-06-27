@@ -1,4 +1,6 @@
-import Phaser from 'phaser';
+import BulletImage from '@assets/bullet/bullet.png';
+import BulletAtlas from '@assets/bullet/bullet_atlas.json';
+import BulletAnim from '@assets/bullet/bullet_anim.json';
 
 export default class Bullet extends Phaser.Physics.Matter.Sprite implements IBullet {
   constructor(scene: Phaser.Scene, x: number, y: number, key: string) {
@@ -12,11 +14,7 @@ export default class Bullet extends Phaser.Physics.Matter.Sprite implements IBul
   }
 
   static preload(scene: Phaser.Scene): void {
-    scene.load.atlas(
-      'bullet',
-      './src/assets/bullet/bullet.png',
-      './src/assets/bullet/bullet_atlas.json'
-    );
-    scene.load.animation('bullet', './src/assets/bullet/bullet_anim.json');
+    scene.load.atlas('bullet', BulletImage, BulletAtlas);
+    scene.load.animation('bullet', BulletAnim);
   }
 }
