@@ -1,4 +1,4 @@
-import Phaser from 'phaser';
+import BoltImage from '@assets/bolt/bolt.png';
 
 export default class Bolt extends Phaser.Physics.Matter.Sprite implements IBullet {
   constructor(scene: Phaser.Scene, x: number, y: number, key: string) {
@@ -13,7 +13,7 @@ export default class Bolt extends Phaser.Physics.Matter.Sprite implements IBulle
   }
 
   static preload(scene: Phaser.Scene): void {
-    scene.load.atlas('bolt', './src/assets/bolt/bolt.png', './src/assets/bolt/bolt_atlas.json');
+    scene.load.atlas('bolt', BoltImage, './src/assets/bolt/bolt_atlas.json');
     scene.load.animation('bolt', './src/assets/bolt/bolt_anim.json');
   }
 }

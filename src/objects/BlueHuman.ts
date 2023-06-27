@@ -1,3 +1,5 @@
+import BlueImage from '@assets/blue/blue.png'
+
 export default class BlueHuman extends Phaser.Physics.Matter.Sprite implements IBody {
   private _animPrefix: TAnim;
 
@@ -55,7 +57,7 @@ export default class BlueHuman extends Phaser.Physics.Matter.Sprite implements I
   }
 
   static preload(scene: Phaser.Scene) {
-    scene.load.atlas('blue', './src/assets/blue/blue.png', './src/assets/blue/blue_atlas.json');
+    scene.load.atlas('blue', BlueImage, './src/assets/blue/blue_atlas.json');
     scene.load.animation('blue', './src/assets/blue/blue_anim.json');
   }
 

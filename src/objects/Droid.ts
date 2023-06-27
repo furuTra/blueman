@@ -1,3 +1,5 @@
+import DroidImage from '@assets/droid/droid.png';
+
 export default class Droid extends Phaser.Physics.Matter.Sprite implements IBody {
   private _animPrefix: TAnim;
 
@@ -56,11 +58,7 @@ export default class Droid extends Phaser.Physics.Matter.Sprite implements IBody
   }
 
   static preload(scene: Phaser.Scene) {
-    scene.load.atlas(
-      'droid',
-      './src/assets/droid/droid.png',
-      './src/assets/droid/droid_atlas.json'
-    );
+    scene.load.atlas('droid', DroidImage, './src/assets/droid/droid_atlas.json');
     scene.load.animation('droid', './src/assets/droid/droid_anim.json');
   }
 
