@@ -1,6 +1,5 @@
 interface IState {
   name: string;
-  //   isFlip: boolean;
   onEnter?: () => void;
   onUpdate?: (dt: number) => void;
   onExit?: () => void;
