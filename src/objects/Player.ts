@@ -32,8 +32,7 @@ export default class Player implements IPlayer {
     }
     x += this.cursor?.left.isDown ? -this._speed : 0;
     x += this.cursor?.right.isDown ? this._speed : 0;
-    x += this.wasd?.A.isDown ? -this._speed : 0;
-    x += this.wasd?.D.isDown ? this._speed : 0;
+    x += this.wasd.velocityX(this._speed);
     return x;
   }
 
@@ -44,8 +43,7 @@ export default class Player implements IPlayer {
     }
     y += this.cursor?.up.isDown ? -this._speed : 0;
     y += this.cursor?.down.isDown ? this._speed : 0;
-    y += this.wasd?.W.isDown ? -this._speed : 0;
-    y += this.wasd?.S.isDown ? this._speed : 0;
+    y += this.wasd.velocityY(this._speed);
     return y;
   }
 

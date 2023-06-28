@@ -15,4 +15,18 @@ export default class WASD implements IWASD {
     this.S = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     this.D = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
   }
+
+  velocityX(speed: number): number {
+    let x = 0;
+    x += this.A.isDown ? -speed : 0;
+    x += this.D.isDown ? speed : 0;
+    return x;
+  }
+
+  velocityY(speed: number): number {
+    let y = 0;
+    y += this.W.isDown ? -speed : 0;
+    y += this.S.isDown ? speed : 0;
+    return y;
+  }
 }

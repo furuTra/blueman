@@ -21,4 +21,6 @@ export interface IWASD {
   A: Phaser.Input.Keyboard.Key;
   S: Phaser.Input.Keyboard.Key;
   D: Phaser.Input.Keyboard.Key;
+  velocityX(speed: number): number;
+  velocityY(speed: number): number;
 }
