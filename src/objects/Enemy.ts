@@ -76,6 +76,12 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite implements IEnem
       .setVisible(true);
   }
 
+  despawn() {
+    this.removeName();
+    this.health.removeHealthBar();
+    this.setActive(false).setVisible(false).removeInteractive();
+  }
+
   preUpdate(time: number, delta: number): void {
     super.preUpdate(time, delta);
     this._nameTag.setPosition(this.x - 16, this.y - 16);

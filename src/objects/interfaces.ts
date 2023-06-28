@@ -7,6 +7,7 @@ export interface IEnemy extends Phaser.Physics.Matter.Sprite {
   startTween(): void;
   removeName(): void;
   showName(): void;
+  despawn(): void;
 }
 
 export interface IPlayer {
@@ -26,4 +27,3 @@ export interface IBody extends Phaser.Physics.Matter.Sprite {
 }
 
 export interface IBullet extends Phaser.Physics.Matter.Sprite {}
-

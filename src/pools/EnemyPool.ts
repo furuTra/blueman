@@ -37,9 +37,7 @@ export default class EnemyPool extends Phaser.GameObjects.Group {
   }
 
   despawn(enemy: IEnemy) {
-    enemy.health.removeHealthBar();
-    enemy.removeName();
-    enemy.setActive(false).setVisible(false).removeInteractive();
-    enemy.world.remove(enemy.body);
+    enemy.despawn();
+    enemy.world.remove(enemy);
   }
 }
