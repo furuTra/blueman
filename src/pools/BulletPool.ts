@@ -3,13 +3,13 @@ import Bullet from '../objects/Bullet';
 import { IBullet } from '~/objects/interfaces';
 
 export default class BulletPool extends Phaser.GameObjects.Group implements IBulletPool {
-  private _inc: TPos;
+  private _inc: { x: number; y: number };
 
-  set inc(inc: TPos) {
+  set inc(inc: { x: number; y: number }) {
     this._inc = inc;
   }
 
-  get inc(): TPos {
+  get inc(): { x: number; y: number } {
     return this._inc;
   }
 

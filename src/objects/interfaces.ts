@@ -11,7 +11,7 @@ export interface IEnemy extends Phaser.Physics.Matter.Sprite {
 
 export interface IPlayer {
   body: IBody;
-  mouse: TPos;
+  mouse: { x: number; y: number };
   get isMouseDown(): boolean;
   create(): void;
   update(dt: number): void;

@@ -23,7 +23,7 @@ export default class Player implements IPlayer {
 
   public body: IBody;
 
-  public mouse: TPos;
+  public mouse: { x: number; y: number };
 
   private velocityX(): number {
     let x = 0;

@@ -11,7 +11,7 @@ export default class EnemyPool extends Phaser.GameObjects.Group {
     super(scene, Object.assign(defaults, config));
   }
 
-  spawn(pos: TPos = { x: 0, y: 0 }, key?: string) {
+  spawn(pos = { x: 0, y: 0 }, key?: string) {
     const enemy: IEnemy = super.get(pos.x, pos.y, key);
     if (!enemy) return;
 

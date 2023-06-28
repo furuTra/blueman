@@ -1,12 +1,12 @@
 declare interface IBulletPool extends Phaser.GameObjects.Group {
-  set inc();
-  get inc(): TPos;
-  fire(pos?: TPos, mouse?: TPos, key?: string);
+  set inc(inc: { x: number; y: number });
+  get inc(): { x: number; y: number };
+  fire(pos?: { x: number; y: number }, mouse?: { x: number; y: number }, key?: string);
   destroyBullet(bullet: Phaser.Physics.Matter.Sprite);
 }
 
 declare interface IEnemyPool extends Phaser.GameObjects.Group {
-  spawn(pos: TPos, key?: string);
+  spawn(pos: { x: number; y: number }, key?: string);
   despawn(enemy: Phaser.Physics.Matter.Sprite);
   reduceHP(enemy: Phaser.Physics.Matter.Sprite);
 }
