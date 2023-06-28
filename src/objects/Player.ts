@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import StateMachine from '../libs/StateMachine';
+import WASD from '../libs/WASD';
 import { IWASD } from '~/libs/interfaces';
 import { IPlayer, IBody } from './interfaces';
 
@@ -54,12 +55,7 @@ export default class Player implements IPlayer {
     this._isFlip = this.body.isFlip;
     this.mouse = { x: 0, y: 0 };
     this.cursor = this.body.scene.input.keyboard.createCursorKeys();
-    this.wasd = {
-      W: this.body.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W),
-      A: this.body.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A),
-      S: this.body.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S),
-      D: this.body.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
-    };
+    this.wasd = new WASD(this.body.scene);
 
     this.stateMachine = new StateMachine(this);
     this.stateMachine
