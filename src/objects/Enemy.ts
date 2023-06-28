@@ -64,14 +64,14 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite implements IEnem
   }
 
   removeName() {
-    this._nameTag.setActive(false);
-    this._nameTag.setVisible(false);
+    this._nameTag.setActive(false).setVisible(false);
   }
 
   showName() {
-    this._nameTag.setText(`enemy${Math.floor(this.x)}`);
-    this._nameTag.setActive(true);
-    this._nameTag.setVisible(true);
+    this._nameTag
+      .setText(`enemy${Math.floor(this.x)}`)
+      .setActive(true)
+      .setVisible(true);
   }
 
   preUpdate(time: number, delta: number): void {
