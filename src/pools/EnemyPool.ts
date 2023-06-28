@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import Enemy from '~/objects/Enemy';
+import { IEnemy } from '~/objects/interfaces';
 
 export default class EnemyPool extends Phaser.GameObjects.Group {
   constructor(scene: Phaser.Scene, config: Phaser.Types.GameObjects.Group.GroupConfig = {}) {

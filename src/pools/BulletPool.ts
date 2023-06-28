@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import Bullet from '../objects/Bullet';
+import { IBullet } from '~/objects/interfaces';
 
 export default class BulletPool extends Phaser.GameObjects.Group implements IBulletPool {
   private _inc: TPos;

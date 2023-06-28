@@ -5,6 +5,7 @@ import BlueHuman from '../objects/BlueHuman';
 import Player from '../objects/Player';
 import EnemyPool from '~/pools/EnemyPool';
 import Droid from '../objects/Droid';
+import { IPlayer } from '~/objects/interfaces';
 
 export default class BattleScene extends Phaser.Scene {
   private bulletGroup?: IBulletPool;

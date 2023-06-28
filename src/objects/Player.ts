@@ -1,5 +1,7 @@
 import Phaser from 'phaser';
 import StateMachine from '../libs/StateMachine';
+import { IWASD } from '~/libs/interfaces';
+import { IPlayer, IBody } from './interfaces';
 
 export default class Player implements IPlayer {
   private cursor: Phaser.Types.Input.Keyboard.CursorKeys;

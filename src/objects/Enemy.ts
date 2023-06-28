@@ -1,4 +1,6 @@
 import HPBar from '~/libs/HPBar';
+import { IEnemy } from './interfaces';
+import { IHPBar } from '~/libs/interfaces';
 
 export default class Enemy extends Phaser.Physics.Matter.Sprite implements IEnemy {
   private _nameTag: Phaser.GameObjects.Text;
