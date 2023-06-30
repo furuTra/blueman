@@ -1,10 +1,12 @@
 import Phaser from 'phaser';
 import Bolt from '~/objects/Bolt';
 import BulletPool from '~/pools/BulletPool';
-import BlueHuman from '../objects/BlueHuman';
-import Player from '../objects/Player';
+import BlueHuman from '~/objects/BlueHuman';
+import Player from '~/objects/Player';
 import EnemyPool from '~/pools/EnemyPool';
-import Droid from '../objects/Droid';
+import Droid from '~/objects/Droid';
+import Map1 from '~/maps/Map1';
+import { IPlayer } from '~/objects/interfaces';
 
 export default class BattleScene extends Phaser.Scene {
   private bulletGroup?: IBulletPool;
@@ -27,6 +29,7 @@ export default class BattleScene extends Phaser.Scene {
     Bolt.preload(this);
     BlueHuman.preload(this);
     Droid.preload(this);
+    Map1.preload(this);
   }
 
   init() {
@@ -61,6 +64,9 @@ export default class BattleScene extends Phaser.Scene {
 
     this.bulletGroup = this.add.bulletPool();
     this.enemyGroup = this.add.enemyPool();
+
+    const map = new Map1(this);
+    map.create();
 
     this.time.addEvent({
       delay: 1000,

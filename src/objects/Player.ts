@@ -1,5 +1,8 @@
 import Phaser from 'phaser';
-import StateMachine from '../libs/StateMachine';
+import StateMachine from '~/libs/StateMachine';
+import WASD from '~/libs/WASD';
+import { IWASD } from '~/libs/interfaces';
+import { IPlayer, IBody } from './interfaces';
 
 export default class Player implements IPlayer {
   private cursor: Phaser.Types.Input.Keyboard.CursorKeys;
@@ -20,7 +23,7 @@ export default class Player implements IPlayer {
 
   public body: IBody;
 
-  public mouse: TPos;
+  public mouse: { x: number; y: number };
 
   private velocityX(): number {
     let x = 0;
@@ -29,8 +32,7 @@ export default class Player implements IPlayer {
     }
     x += this.cursor?.left.isDown ? -this._speed : 0;
     x += this.cursor?.right.isDown ? this._speed : 0;
-    x += this.wasd?.A.isDown ? -this._speed : 0;
-    x += this.wasd?.D.isDown ? this._speed : 0;
+    x += this.wasd.velocityX(this._speed);
     return x;
   }
 
@@ -41,8 +43,7 @@ export default class Player implements IPlayer {
     }
     y += this.cursor?.up.isDown ? -this._speed : 0;
     y += this.cursor?.down.isDown ? this._speed : 0;
-    y += this.wasd?.W.isDown ? -this._speed : 0;
-    y += this.wasd?.S.isDown ? this._speed : 0;
+    y += this.wasd.velocityY(this._speed);
     return y;
   }
 
@@ -52,12 +53,7 @@ export default class Player implements IPlayer {
     this._isFlip = this.body.isFlip;
     this.mouse = { x: 0, y: 0 };
     this.cursor = this.body.scene.input.keyboard.createCursorKeys();
-    this.wasd = {
-      W: this.body.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W),
-      A: this.body.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A),
-      S: this.body.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S),
-      D: this.body.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
-    };
+    this.wasd = new WASD(this.body.scene);
 
     this.stateMachine = new StateMachine(this);
     this.stateMachine

@@ -1,6 +1,8 @@
 import BlueImage from '@assets/blue/blue.png';
 import BlueAtlas from '@assets/blue/blue_atlas.json';
 import BlueAnim from '@assets/blue/blue_anim.json';
+import { IBody } from './interfaces';
+import { TAnim } from './types';
 
 export default class BlueHuman extends Phaser.Physics.Matter.Sprite implements IBody {
   private _animPrefix: TAnim;

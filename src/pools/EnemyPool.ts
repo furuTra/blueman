@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import Enemy from '~/objects/Enemy';
+import { IEnemy } from '~/objects/interfaces';
 
 export default class EnemyPool extends Phaser.GameObjects.Group {
   constructor(scene: Phaser.Scene, config: Phaser.Types.GameObjects.Group.GroupConfig = {}) {
@@ -10,7 +11,7 @@ export default class EnemyPool extends Phaser.GameObjects.Group {
     super(scene, Object.assign(defaults, config));
   }
 
-  spawn(pos: TPos = { x: 0, y: 0 }, key?: string) {
+  spawn(pos = { x: 0, y: 0 }, key?: string) {
     const enemy: IEnemy = super.get(pos.x, pos.y, key);
     if (!enemy) return;
 
@@ -36,9 +37,7 @@ export default class EnemyPool extends Phaser.GameObjects.Group {
   }
 
   despawn(enemy: IEnemy) {
-    enemy.health.removeHealthBar();
-    enemy.removeName();
-    enemy.setActive(false).setVisible(false).removeInteractive();
-    enemy.world.remove(enemy.body);
+    enemy.despawn();
+    enemy.world.remove(enemy);
   }
 }

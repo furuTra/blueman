@@ -1,6 +1,8 @@
 import DroidImage from '@assets/droid/droid.png';
-import DroidAtlas from "@assets/droid/droid_atlas.json"
-import DroidAnim from "@assets/droid/droid_anim.json"
+import DroidAtlas from '@assets/droid/droid_atlas.json';
+import DroidAnim from '@assets/droid/droid_anim.json';
+import { TAnim } from './types';
+import { IBody } from './interfaces';
 
 export default class Droid extends Phaser.Physics.Matter.Sprite implements IBody {
   private _animPrefix: TAnim;

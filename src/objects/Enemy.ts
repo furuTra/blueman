@@ -1,4 +1,6 @@
 import HPBar from '~/libs/HPBar';
+import { IEnemy } from './interfaces';
+import { IHPBar } from '~/libs/interfaces';
 
 export default class Enemy extends Phaser.Physics.Matter.Sprite implements IEnemy {
   private _nameTag: Phaser.GameObjects.Text;
@@ -72,6 +74,12 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite implements IEnem
       .setText(`enemy${Math.floor(this.x)}`)
       .setActive(true)
       .setVisible(true);
+  }
+
+  despawn() {
+    this.removeName();
+    this.health.removeHealthBar();
+    this.setActive(false).setVisible(false).removeInteractive();
   }
 
   preUpdate(time: number, delta: number): void {

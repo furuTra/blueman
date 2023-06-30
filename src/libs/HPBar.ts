@@ -1,15 +1,16 @@
 import Phaser from 'phaser';
+import { IHPBar } from './interfaces';
 
 export default class HPBar extends Phaser.GameObjects.Graphics implements IHPBar {
   private _value: number;
 
-  private _pos: TPos;
+  private _pos: { x: number; y: number };
 
   private _maxValue: number;
 
   constructor(
     scene: Phaser.Scene,
-    pos: TPos = { x: 0, y: 0 },
+    pos = { x: 0, y: 0 },
     value: number = 100,
     maxValue: number = 100
   ) {
@@ -18,8 +19,7 @@ export default class HPBar extends Phaser.GameObjects.Graphics implements IHPBar
     this._pos = pos;
     this._maxValue = maxValue;
 
-    this.setPosition(pos.x, pos.y);
-    this.draw();
+    this.setPosition(pos.x, pos.y).draw();
     scene.add.existing(this);
   }
 
@@ -38,8 +38,7 @@ export default class HPBar extends Phaser.GameObjects.Graphics implements IHPBar
 
   draw() {
     if (!this.active && !this.visible) {
-      this.setActive(true);
-      this.setVisible(true);
+      this.setActive(true).setVisible(true);
     }
 
     this.clear();
@@ -51,8 +50,7 @@ export default class HPBar extends Phaser.GameObjects.Graphics implements IHPBar
     const perHealth = this._value / this._maxValue;
 
     // BackGround
-    this.fillStyle(0x4d4d4d);
-    this.fillRect(this._pos.x, this._pos.y, healthBarLength, healthBarHeight);
+    this.fillStyle(0x4d4d4d).fillRect(this._pos.x, this._pos.y, healthBarLength, healthBarHeight);
 
     // Health(Normal)
     this.fillStyle(0x80ff80);
@@ -80,7 +78,6 @@ export default class HPBar extends Phaser.GameObjects.Graphics implements IHPBar
   }
 
   removeHealthBar() {
-    this.setActive(false);
-    this.setVisible(false);
+    this.setActive(false).setVisible(false);
   }
 }

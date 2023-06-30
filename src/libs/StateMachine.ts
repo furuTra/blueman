@@ -1,9 +1,4 @@
-interface IState {
-  name: string;
-  onEnter?: () => void;
-  onUpdate?: (dt: number) => void;
-  onExit?: () => void;
-}
+import { IState } from './interfaces';
 
 export default class StateMachine {
   private states = new Map<string, IState>();
