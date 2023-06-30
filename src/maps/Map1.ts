@@ -25,5 +25,7 @@ export default class Map1 {
     this.tileset = this.map.addTilesetImage('map', 'tiles', 96, 96, 0, 0);
     this.map.createLayer('base', this.tileset);
     this.map.createLayer('wall', this.tileset);
+    this.map.createLayer('floor1', this.tileset);
+    this.map.createLayer('floor2', this.tileset);
   }
 }
