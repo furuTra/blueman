@@ -1,16 +1,21 @@
 import Phaser from 'phaser';
+import { TLayer, TTileMap } from './types';
 import mapTile from '@assets/maps/map1/map.png';
 import mapJson from '@assets/maps/map1/map.json';
 
 export default class Map1 {
   private scene: Phaser.Scene;
 
-  private map?: Phaser.Tilemaps.Tilemap;
+  private map: Phaser.Tilemaps.Tilemap;
 
-  private tileset?: Phaser.Tilemaps.Tileset;
+  private tileset: Phaser.Tilemaps.Tileset;
 
   constructor(scene: Phaser.Scene) {
     this.scene = scene;
+    this.map = this.scene.make.tilemap({
+      key: 'map',
+    });
+    this.tileset = this.map.addTilesetImage('map', 'tiles', 96, 96, 0, 0);
   }
 
   static preload(scene: Phaser.Scene) {
@@ -19,11 +24,13 @@ export default class Map1 {
   }
 
   create() {
-    this.map = this.scene.make.tilemap({
-      key: 'map',
+    (mapJson as TTileMap).layers.forEach((layer: TLayer) => {
+      if (layer.type === 'tilelayer') {
+        const mapLayer = this.map.createLayer(layer.name, this.tileset).setCollisionByProperty({
+          collides: true,
+        });
+        this.scene.matter.world.convertTilemapLayer(mapLayer);
+      }
     });
-    this.tileset = this.map.addTilesetImage('map', 'tiles', 96, 96, 0, 0);
-    this.map.createLayer('base', this.tileset);
-    this.map.createLayer('wall', this.tileset);
   }
 }
