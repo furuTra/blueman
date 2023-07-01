@@ -20,7 +20,6 @@ export default class Map1 {
 
   static preload(scene: Phaser.Scene) {
     scene.load.image('tiles', mapTile);
-    console.log(mapJson);
     scene.load.tilemapTiledJSON('map', mapJson);
   }
 
