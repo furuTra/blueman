@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import Property from '~/libs/Property';
+import eventsCenter from '~/events/EventsCenter';
 
 export default class UIScene extends Phaser.Scene {
   private _hpBarPos = { x: 5, y: 25 };
@@ -52,12 +53,11 @@ export default class UIScene extends Phaser.Scene {
     });
     this.draw();
 
-    this.time.addEvent({
-      delay: 100,
-      loop: true,
-      callback: () => {
-        this.decrease(1);
-      },
+    // HPを減らすイベントを全体に公開
+    eventsCenter.on('decrease-player-hp', this.decrease, this);
+
+    this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
+      eventsCenter.off('decrease-player-hp', this.decrease, this);
     });
   }
 
