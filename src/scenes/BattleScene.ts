@@ -7,6 +7,7 @@ import EnemyPool from '~/pools/EnemyPool';
 import Droid from '~/objects/Droid';
 import Map1 from '~/maps/Map1';
 import { IPlayer } from '~/objects/interfaces';
+import eventsCenter from '~/events/EventsCenter';
 
 export default class BattleScene extends Phaser.Scene {
   private bulletGroup?: IBulletPool;
@@ -116,6 +117,22 @@ export default class BattleScene extends Phaser.Scene {
             enemies.map((enemy) => {
               this.enemyGroup?.reduceHP(enemy);
             });
+        }
+      )
+      .on(
+        'collisionactive',
+        (
+          _event: Phaser.Physics.Matter.Events.CollisionStartEvent,
+          bodyA: MatterJS.BodyType,
+          bodyB: MatterJS.BodyType
+        ) => {
+          if (bodyA.label === 'enemy_body' && bodyB.label === 'blue_human_body') {
+            // 全体公開イベントを発火させ、playerのHPを減らす
+            eventsCenter.emit('decrease-player-hp', 10);
+          }
+          if (bodyB.label === 'enemy_body' && bodyA.label === 'blue_human_body') {
+            eventsCenter.emit('decrease-player-hp', 10);
+          }
         }
       );
   }

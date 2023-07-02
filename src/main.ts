@@ -1,5 +1,7 @@
 import Phaser from 'phaser';
 import BattleScene from '~/scenes/BattleScene';
+import UIScene from '~/scenes/UIScene';
+import SceneController from '~/scenes/SceneController';
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -30,6 +32,6 @@ const config: Phaser.Types.Core.GameConfig = {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
-  scene: [BattleScene],
+  scene: [SceneController, BattleScene, UIScene],
 };
 export default new Phaser.Game(config);
