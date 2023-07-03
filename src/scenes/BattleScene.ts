@@ -120,19 +120,20 @@ export default class BattleScene extends Phaser.Scene {
         }
       )
       .on(
-        'collisionactive',
+        'collisionstart',
         (
           _event: Phaser.Physics.Matter.Events.CollisionStartEvent,
           bodyA: MatterJS.BodyType,
           bodyB: MatterJS.BodyType
         ) => {
+          let isAttacked = false;
           if (bodyA.label === 'enemy_body' && bodyB.label === 'blue_human_body') {
-            // 全体公開イベントを発火させ、playerのHPを減らす
-            eventsCenter.emit('decrease-player-hp', 10);
+            isAttacked = true;
+          } else if (bodyB.label === 'enemy_body' && bodyA.label === 'blue_human_body') {
+            isAttacked = true;
           }
-          if (bodyB.label === 'enemy_body' && bodyA.label === 'blue_human_body') {
-            eventsCenter.emit('decrease-player-hp', 10);
-          }
+          // 全体公開イベントを発火させ、playerのHPを減らす
+          if (isAttacked) eventsCenter.emit('decrease-player-hp', 10);
         }
       );
   }

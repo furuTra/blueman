@@ -15,7 +15,7 @@ export default class SceneController extends Phaser.Scene {
 
   create() {
     this.scene.launch('ui_scene');
-    this.scene.launch('battle_scene');
+    this.scene.start('battle_scene');
   }
 
   update() {
