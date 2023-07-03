@@ -44,13 +44,7 @@ export default class UIScene extends Phaser.Scene {
   }
 
   create() {
-    if (!this._property) return;
-    this.add.text(this._namePos.x, this._namePos.y, this._property?.name, {
-      fontFamily: 'arial',
-      fontSize: '18px',
-      color: '#f0f8ff',
-      backgroundColor: '#4d4d4d',
-    });
+    this.createPlayerHeader();
     this.draw();
 
     // HPを減らすイベントを全体に公開
@@ -58,6 +52,16 @@ export default class UIScene extends Phaser.Scene {
 
     this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
       eventsCenter.off('decrease-player-hp', this.decrease, this);
+    });
+  }
+
+  createPlayerHeader() {
+    if (!this._property) return;
+    this.add.text(this._namePos.x, this._namePos.y, this._property?.name, {
+      fontFamily: 'arial',
+      fontSize: '18px',
+      color: '#f0f8ff',
+      backgroundColor: '#4d4d4d',
     });
   }
 
