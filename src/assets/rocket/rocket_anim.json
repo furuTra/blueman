@@ -1,25 +1,25 @@
 {
     "anims": [
         {
-            "key": "bullet",
+            "key": "rocket",
             "type": "frames",
             "repeat": -1,
             "frameRate": 12,
             "frames": [
                 {
-                    "key": "bullet",
+                    "key": "rocket",
                     "frame": "nairan_-_rocket_0"
                 },
                 {
-                    "key": "bullet",
+                    "key": "rocket",
                     "frame": "nairan_-_rocket_1"
                 },
                 {
-                    "key": "bullet",
+                    "key": "rocket",
                     "frame": "nairan_-_rocket_2"
                 },
                 {
-                    "key": "bullet",
+                    "key": "rocket",
                     "frame": "nairan_-_rocket_3"
                 }
             ]
