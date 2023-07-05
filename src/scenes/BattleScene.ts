@@ -8,6 +8,7 @@ import Droid from '~/components/characters/Droid';
 import Map1 from '~/maps/Map1';
 import { IPlayer } from '~/components/interfaces';
 import eventsCenter from '~/events/EventsCenter';
+import Rocket from '~/components/bullets/Rocket';
 
 export default class BattleScene extends Phaser.Scene {
   private bulletGroup?: IBulletPool;
@@ -28,6 +29,7 @@ export default class BattleScene extends Phaser.Scene {
 
   preload(): void {
     Bolt.preload(this);
+    Rocket.preload(this);
     Blue.preload(this);
     Droid.preload(this);
     Map1.preload(this);
@@ -170,7 +172,7 @@ export default class BattleScene extends Phaser.Scene {
       return null;
     }
 
-    const bullet = this.bulletGroup.fire({ x, y }, this.player.mouse, 'bolt');
+    const bullet = this.bulletGroup.fire({ x, y }, this.player.mouse, 'rocket');
 
     return bullet;
   }
