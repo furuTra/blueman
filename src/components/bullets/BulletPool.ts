@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
-import Bullet from '../objects/Bullet';
-import { IBullet } from '~/objects/interfaces';
+import Bullet from './Bullet';
+import { IBullet } from './interfaces';
+import { TBulletKey } from './types';
 
 export default class BulletPool extends Phaser.GameObjects.Group implements IBulletPool {
   private _inc: { x: number; y: number };
@@ -22,7 +23,7 @@ export default class BulletPool extends Phaser.GameObjects.Group implements IBul
     this._inc = { x: 0, y: 0 };
   }
 
-  fire(pos = { x: 0, y: 0 }, mouse = { x: 0, y: 0 }, key = 'bullet') {
+  fire(pos = { x: 0, y: 0 }, mouse = { x: 0, y: 0 }, key: TBulletKey) {
     const bullet: IBullet = super.get(pos.x, pos.y, key);
     if (!bullet) {
       return;

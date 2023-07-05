@@ -1,13 +1,14 @@
 import Phaser from 'phaser';
-import Bolt from '~/objects/Bolt';
-import BulletPool from '~/pools/BulletPool';
-import BlueHuman from '~/objects/BlueHuman';
-import Player from '~/objects/Player';
-import EnemyPool from '~/pools/EnemyPool';
-import Droid from '~/objects/Droid';
+import Bolt from '~/components/bullets/Bolt';
+import BulletPool from '~/components/bullets/BulletPool';
+import Blue from '~/components/characters/Blue';
+import Player from '~/components/Player';
+import EnemyPool from '~/components/enemies/EnemyPool';
+import Droid from '~/components/characters/Droid';
 import Map1 from '~/maps/Map1';
-import { IPlayer } from '~/objects/interfaces';
+import { IPlayer } from '~/components/interfaces';
 import eventsCenter from '~/events/EventsCenter';
+import Rocket from '~/components/bullets/Rocket';
 
 export default class BattleScene extends Phaser.Scene {
   private bulletGroup?: IBulletPool;
@@ -28,7 +29,8 @@ export default class BattleScene extends Phaser.Scene {
 
   preload(): void {
     Bolt.preload(this);
-    BlueHuman.preload(this);
+    Rocket.preload(this);
+    Blue.preload(this);
     Droid.preload(this);
     Map1.preload(this);
   }
@@ -53,7 +55,7 @@ export default class BattleScene extends Phaser.Scene {
   private createCamera() {
     if (this.player)
       this.cameras.main
-        .startFollow(this.player.body, true)
+        .startFollow(this.player, true)
         .setBounds(0, 0, this.worldWidthEnd, this.worldHeightEnd);
 
     return this.cameras.main;
@@ -79,11 +81,7 @@ export default class BattleScene extends Phaser.Scene {
       },
     });
 
-    const options: Phaser.Types.Physics.Matter.MatterBodyConfig = {
-      label: 'player',
-    };
-    const blueHuman = new BlueHuman(this, 400, 300, options);
-    this.player = new Player(blueHuman);
+    this.player = new Player(this, 'blue', 400, 300);
     this.player.create();
 
     this.createCamera();
@@ -164,7 +162,7 @@ export default class BattleScene extends Phaser.Scene {
     });
 
     if (this.player.isMouseDown && time > this._lastFired) {
-      this.fireBullet(this.player.body.x, this.player.body.y);
+      this.fireBullet(this.player.x, this.player.y);
       this._lastFired = time + 80;
     }
   }
@@ -174,7 +172,7 @@ export default class BattleScene extends Phaser.Scene {
       return null;
     }
 
-    const bullet = this.bulletGroup.fire({ x, y }, this.player.mouse, 'bolt');
+    const bullet = this.bulletGroup.fire({ x, y }, this.player.mouse, 'rocket');
 
     return bullet;
   }

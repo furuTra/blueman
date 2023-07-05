@@ -2,9 +2,12 @@ import Phaser from 'phaser';
 import StateMachine from '~/libs/StateMachine';
 import WASD from '~/libs/WASD';
 import { IWASD } from '~/libs/interfaces';
-import { IPlayer, IBody } from './interfaces';
+import { IPlayer } from './interfaces';
+import { ICharacter } from './characters/interfaces';
+import { TBodyKey } from './characters/types';
+import getBodyLists from './characters/BodyLists';
 
-export default class Player implements IPlayer {
+export default class Player extends Phaser.Physics.Matter.Sprite implements IPlayer {
   private cursor: Phaser.Types.Input.Keyboard.CursorKeys;
 
   private _speed: number;
@@ -21,9 +24,9 @@ export default class Player implements IPlayer {
     return this._isMouseDown;
   }
 
-  public body: IBody;
+  readonly charactor: ICharacter;
 
-  public mouse: { x: number; y: number };
+  public mouse = { x: 0, y: 0 };
 
   private velocityX(): number {
     let x = 0;
@@ -47,82 +50,94 @@ export default class Player implements IPlayer {
     return y;
   }
 
-  constructor(body: IBody) {
-    this.body = body;
+  constructor(
+    scene: Phaser.Scene,
+    key: TBodyKey,
+    x: number,
+    y: number,
+    config?: Phaser.Types.Physics.Matter.MatterBodyConfig
+  ) {
+    const defaults: Phaser.Types.Physics.Matter.MatterBodyConfig = {
+      label: 'player',
+    };
+    super(scene.matter.world, x, y, key, '', Object.assign(defaults, config));
+    const charactor = getBodyLists(scene, x, y).get(key);
+    this.charactor = charactor!();
+    this.setExistingBody(this.charactor.body);
+
     this._speed = 3;
-    this._isFlip = this.body.isFlip;
-    this.mouse = { x: 0, y: 0 };
-    this.cursor = this.body.scene.input.keyboard.createCursorKeys();
-    this.wasd = new WASD(this.body.scene);
+    this._isFlip = this.charactor.isFlip;
+
+    this.cursor = this.scene.input.keyboard.createCursorKeys();
+    this.wasd = new WASD(this.scene);
 
     this.stateMachine = new StateMachine(this);
     this.stateMachine
       .addState('move', {
         onEnter: () => {
-          this.body.animPrefix = 'move';
+          this.charactor.animPrefix = 'move';
         },
         onUpdate: () => {
           if (this.velocityX() === 0 && this.velocityY() === 0) this.stateMachine.setState('idle');
-          this.body.setVelocity(this.velocityX(), this.velocityY());
+          this.setVelocity(this.velocityX(), this.velocityY());
           const isFlip = this._isFlip;
           if (this.velocityX() > 0) {
-            this.body.isFlip = !isFlip;
+            this.charactor.isFlip = !isFlip;
           } else if (this.velocityX() < 0) {
-            this.body.isFlip = isFlip;
+            this.charactor.isFlip = isFlip;
           }
-          this.body.update();
         },
         onExit: () => {
-          this.body.animPrefix = 'idle';
+          this.charactor.animPrefix = 'idle';
         },
       })
       .addState('idle', {
         onEnter: () => {
-          this.body.animPrefix = 'idle';
+          this.charactor.animPrefix = 'idle';
         },
         onUpdate: () => {
           if (this.velocityX() !== 0 || this.velocityY() !== 0) this.stateMachine.setState('move');
           if (this._isMouseDown) this.stateMachine.setState('attack');
-          this.body.update();
         },
       })
       .addState('attack', {
         onEnter: () => {
-          this.body.animPrefix = 'attack';
+          this.charactor.animPrefix = 'attack';
         },
         onUpdate: () => {
           if (!this._isMouseDown) this.stateMachine.setState('idle');
         },
         onExit: () => {
-          this.body.animPrefix = 'idle';
+          this.charactor.animPrefix = 'idle';
         },
       })
       .setState('idle');
   }
 
   create(): void {
-    this.body.setData({ speed: this._speed, isFlip: false, attackCount: 0, hp: 100 });
-    this.body.scene.add.existing(this.body);
-    this.body.anims.play(this.body.animKey);
-    this.body.setFixedRotation();
+    this.scene.add.existing(this);
+    this.anims.play(this.charactor.animKey);
+    this.setFixedRotation();
     this.mouseDown();
   }
 
   update(dt: number): void {
     this.stateMachine.update(dt);
+    this.anims.play({ key: this.charactor.animKey }, true);
+    this.setFlipX(this.charactor.isFlip);
   }
 
   private mouseDown(): void {
-    this.body.scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+    this.scene.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
       this._isMouseDown = true;
       this.mouse = { x: pointer.x, y: pointer.y };
     });
 
-    this.body.scene.input.on('pointermove', (pointer: Phaser.Input.Pointer) => {
+    this.scene.input.on('pointermove', (pointer: Phaser.Input.Pointer) => {
       this.mouse = { x: pointer.x, y: pointer.y };
     });
 
-    this.body.scene.input.on('pointerup', (_pointer: Phaser.Input.Pointer) => {
+    this.scene.input.on('pointerup', (_pointer: Phaser.Input.Pointer) => {
       this._isMouseDown = false;
     });
   }

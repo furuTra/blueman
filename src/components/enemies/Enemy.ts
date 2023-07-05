@@ -1,11 +1,12 @@
 import HPBar from '~/libs/HPBar';
 import { IEnemy } from './interfaces';
+import { ICharacter } from '~/components/characters/interfaces';
 import { IHPBar } from '~/libs/interfaces';
+import getBodyLists from '~/components/characters/BodyLists';
+import { TBodyKey } from '~/components/characters/types';
 
 export default class Enemy extends Phaser.Physics.Matter.Sprite implements IEnemy {
   private _nameTag: Phaser.GameObjects.Text;
-
-  private _body: MatterJS.BodyType;
 
   private _health: IHPBar;
 
@@ -15,34 +16,19 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite implements IEnem
     return this._health;
   }
 
+  readonly charactor: ICharacter;
+
   constructor(
     scene: Phaser.Scene,
     x: number,
     y: number,
-    texture = 'droid',
+    key: TBodyKey,
     config: Phaser.Types.Physics.Matter.MatterBodyConfig
   ) {
     const defaults: Phaser.Types.Physics.Matter.MatterBodyConfig = {
-      label: 'droid',
-    };
-    super(scene.matter.world, x, y, texture, '', Object.assign(defaults, config));
-
-    const matter = new Phaser.Physics.Matter.MatterPhysics(scene);
-    const body = matter.bodies.rectangle(x, y + 20, 32, 20, {
-      ignoreGravity: true,
-      restitution: 1,
-      friction: 0,
-      label: 'enemy_body',
-    });
-    const sensor = matter.bodies.circle(x, y, 32, {
-      isSensor: true,
-      label: 'enemy_sensor',
-    });
-    this._body = matter.body.create({
-      parts: [body, sensor],
       label: 'enemy',
-    });
-    this.setExistingBody(this._body);
+    };
+    super(scene.matter.world, x, y, key, '', Object.assign(defaults, config));
 
     this._nameTag = scene.add.text(x, y, `enemy_${Math.floor(this.x)}`, {
       font: '12px Arial',
@@ -57,6 +43,10 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite implements IEnem
       repeat: -1,
       yoyo: true,
     });
+
+    const charactor = getBodyLists(scene, x, y).get(key);
+    this.charactor = charactor!();
+    this.setExistingBody(this.charactor.body);
 
     this.startTween();
   }

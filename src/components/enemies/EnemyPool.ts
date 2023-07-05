@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
-import Enemy from '~/objects/Enemy';
-import { IEnemy } from '~/objects/interfaces';
+import Enemy from './Enemy';
+import { IEnemy } from './interfaces';
+import { TBodyKey } from '~/components/characters/types';
 
 export default class EnemyPool extends Phaser.GameObjects.Group {
   constructor(scene: Phaser.Scene, config: Phaser.Types.GameObjects.Group.GroupConfig = {}) {
@@ -11,13 +12,13 @@ export default class EnemyPool extends Phaser.GameObjects.Group {
     super(scene, Object.assign(defaults, config));
   }
 
-  spawn(pos = { x: 0, y: 0 }, key?: string) {
+  spawn(pos = { x: 0, y: 0 }, key: TBodyKey = 'droid') {
     const enemy: IEnemy = super.get(pos.x, pos.y, key);
     if (!enemy) return;
 
     enemy.setFixedRotation();
 
-    enemy.anims.play({ key: 'droid_move' }, true);
+    enemy.anims.play({ key: `${key}_move` }, true);
 
     const spawnExisting = this.countActive(false) > 0;
     if (spawnExisting) {
