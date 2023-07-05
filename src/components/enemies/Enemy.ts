@@ -1,6 +1,6 @@
 import HPBar from '~/libs/HPBar';
 import { IEnemy } from './interfaces';
-import { ICharacter } from '~/components/characters/interface';
+import { ICharacter } from '~/components/characters/interfaces';
 import { IHPBar } from '~/libs/interfaces';
 import getBodyLists from '~/components/characters/BodyLists';
 import { TBodyKey } from '~/components/characters/types';
