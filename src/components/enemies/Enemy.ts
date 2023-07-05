@@ -22,11 +22,11 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite implements IEnem
     scene: Phaser.Scene,
     x: number,
     y: number,
-    key: TBodyKey = 'droid',
+    key: TBodyKey,
     config: Phaser.Types.Physics.Matter.MatterBodyConfig
   ) {
     const defaults: Phaser.Types.Physics.Matter.MatterBodyConfig = {
-      label: 'droid',
+      label: 'enemy',
     };
     super(scene.matter.world, x, y, key, '', Object.assign(defaults, config));
 
