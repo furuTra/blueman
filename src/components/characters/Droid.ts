@@ -4,13 +4,14 @@ import DroidAtlas from '@assets/droid/droid_atlas.json';
 import DroidAnim from '@assets/droid/droid_anim.json';
 import { TAnim, TBodyKey } from './types';
 import { ICharacter } from './interfaces';
+import BaseCharacter from './BaseCharacter';
 
-export default class Droid implements ICharacter {
+export default class Droid extends BaseCharacter implements ICharacter {
   private _animPrefix: TAnim;
 
   readonly bodyKey: TBodyKey = 'droid';
 
-  readonly body: MatterJS.BodyType;
+  readonly bodyType: MatterJS.BodyType;
 
   get animKey(): string {
     return `${this.bodyKey}_${this.animPrefix}`;
@@ -40,21 +41,21 @@ export default class Droid implements ICharacter {
   }
 
   constructor(scene: Phaser.Scene, x: number, y: number) {
-    const matter = new Phaser.Physics.Matter.MatterPhysics(scene);
-    const body = matter.bodies.rectangle(x, y + 20, 32, 20, {
+    super(scene);
+    this._animPrefix = 'idle';
+    const body = this.bodies.rectangle(x, y + 20, 32, 20, {
       ignoreGravity: true,
       restitution: 1,
       friction: 0,
       label: `${this.bodyKey}_body`,
     });
-    const sensor = matter.bodies.circle(x, y, 32, {
+    const sensor = this.bodies.circle(x, y, 32, {
       isSensor: true,
       label: `${this.bodyKey}_sensor`,
     });
-    this.body = matter.body.create({
+    this.bodyType = this.body.create({
       parts: [body, sensor],
       label: this.bodyKey,
     });
-    this._animPrefix = 'idle';
   }
 }

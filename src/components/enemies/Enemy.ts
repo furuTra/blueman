@@ -46,7 +46,7 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite implements IEnem
 
     const charactor = getBodyLists(scene, x, y).get(key);
     this.charactor = charactor!();
-    this.setExistingBody(this.charactor.body);
+    this.setExistingBody(this.charactor.bodyType);
 
     this.startTween();
   }

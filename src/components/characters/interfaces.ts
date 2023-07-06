@@ -2,7 +2,7 @@ import { TAnim, TBodyKey } from './types';
 
 export interface ICharacter {
   readonly bodyKey: TBodyKey;
-  readonly body: MatterJS.BodyType;
+  readonly bodyType: MatterJS.BodyType;
   set animPrefix(animPrefix: TAnim);
   get animPrefix(): TAnim;
   get animKey(): string;
