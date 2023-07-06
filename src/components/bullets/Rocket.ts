@@ -11,10 +11,10 @@ export default class Rocket extends BaseBullet implements IBulletBody {
 
   readonly bodyType: MatterJS.BodyType;
 
-  constructor(scene: Phaser.Scene, x: number, y: number) {
+  constructor(scene: Phaser.Scene, x: number, y: number, label: string = 'bullet') {
     super(scene);
     const sensor = this.bodies.circle(x, y, 16, {
-      label: `${this.bodyKey}_sensor`,
+      label: `${label}_sensor`,
       isSensor: true,
     });
     this.bodyType = this.body.create({

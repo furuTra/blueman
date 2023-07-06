@@ -40,17 +40,17 @@ export default class Blue extends BaseCharacter implements ICharacter {
     scene.load.animation('blue', BlueAnim);
   }
 
-  constructor(scene: Phaser.Scene, x: number, y: number) {
+  constructor(scene: Phaser.Scene, x: number, y: number, label: string = 'enemy') {
     super(scene);
     const body = this.bodies.rectangle(x, y + 20, 32, 32, {
       ignoreGravity: true,
       restitution: 1,
       friction: 0,
-      label: `${this.bodyKey}_body`,
+      label: `${label}_body`,
     });
     const sensor = this.bodies.circle(x, y, 32, {
       isSensor: true,
-      label: `${this.bodyKey}_sensor`,
+      label: `${label}_sensor`,
     });
     this.bodyType = this.body.create({
       parts: [body, sensor],
