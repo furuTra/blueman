@@ -12,6 +12,6 @@ export default class Bullet extends Phaser.Physics.Matter.Sprite implements IBul
     super(scene.matter.world, x, y, key, '', options);
     const bulletBody = getBulletLists(scene, x, y).get(key);
     this.bulletBody = bulletBody!();
-    this.setExistingBody(this.bulletBody.body);
+    this.setExistingBody(this.bulletBody.bodyType);
   }
 }

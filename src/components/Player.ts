@@ -5,7 +5,7 @@ import { IWASD } from '~/libs/interfaces';
 import { IPlayer } from './interfaces';
 import { ICharacter } from './characters/interfaces';
 import { TBodyKey } from './characters/types';
-import getBodyLists from './characters/BodyLists';
+import getCharacterLists from './characters/CharacterLists';
 
 export default class Player extends Phaser.Physics.Matter.Sprite implements IPlayer {
   private cursor: Phaser.Types.Input.Keyboard.CursorKeys;
@@ -61,9 +61,9 @@ export default class Player extends Phaser.Physics.Matter.Sprite implements IPla
       label: 'player',
     };
     super(scene.matter.world, x, y, key, '', Object.assign(defaults, config));
-    const charactor = getBodyLists(scene, x, y).get(key);
+    const charactor = getCharacterLists(scene, x, y, 'player').get(key);
     this.charactor = charactor!();
-    this.setExistingBody(this.charactor.body);
+    this.setExistingBody(this.charactor.bodyType);
 
     this._speed = 3;
     this._isFlip = this.charactor.isFlip;

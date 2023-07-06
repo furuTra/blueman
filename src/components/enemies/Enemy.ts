@@ -2,7 +2,7 @@ import HPBar from '~/libs/HPBar';
 import { IEnemy } from './interfaces';
 import { ICharacter } from '~/components/characters/interfaces';
 import { IHPBar } from '~/libs/interfaces';
-import getBodyLists from '~/components/characters/BodyLists';
+import getCharacterLists from '~/components/characters/CharacterLists';
 import { TBodyKey } from '~/components/characters/types';
 
 export default class Enemy extends Phaser.Physics.Matter.Sprite implements IEnemy {
@@ -44,9 +44,9 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite implements IEnem
       yoyo: true,
     });
 
-    const charactor = getBodyLists(scene, x, y).get(key);
+    const charactor = getCharacterLists(scene, x, y, 'enemy').get(key);
     this.charactor = charactor!();
-    this.setExistingBody(this.charactor.body);
+    this.setExistingBody(this.charactor.bodyType);
 
     this.startTween();
   }

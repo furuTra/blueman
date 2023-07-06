@@ -4,13 +4,14 @@ import BlueAtlas from '@assets/blue/blue_atlas.json';
 import BlueAnim from '@assets/blue/blue_anim.json';
 import { ICharacter } from './interfaces';
 import { TAnim, TBodyKey } from './types';
+import BaseCharacter from './BaseCharacter';
 
-export default class Blue implements ICharacter {
+export default class Blue extends BaseCharacter implements ICharacter {
   private _animPrefix: TAnim;
 
   readonly bodyKey: TBodyKey = 'blue';
 
-  readonly body: MatterJS.BodyType;
+  readonly bodyType: MatterJS.BodyType;
 
   get animKey(): string {
     return `${this.bodyKey}_${this.animPrefix}`;
@@ -39,19 +40,19 @@ export default class Blue implements ICharacter {
     scene.load.animation('blue', BlueAnim);
   }
 
-  constructor(scene: Phaser.Scene, x: number, y: number) {
-    const matter = new Phaser.Physics.Matter.MatterPhysics(scene);
-    const body = matter.bodies.rectangle(x, y + 20, 32, 32, {
+  constructor(scene: Phaser.Scene, x: number, y: number, label: string = 'enemy') {
+    super(scene);
+    const body = this.bodies.rectangle(x, y + 20, 32, 32, {
       ignoreGravity: true,
       restitution: 1,
       friction: 0,
-      label: `${this.bodyKey}_body`,
+      label: `${label}_body`,
     });
-    const sensor = matter.bodies.circle(x, y, 32, {
+    const sensor = this.bodies.circle(x, y, 32, {
       isSensor: true,
-      label: `${this.bodyKey}_sensor`,
+      label: `${label}_sensor`,
     });
-    this.body = matter.body.create({
+    this.bodyType = this.body.create({
       parts: [body, sensor],
     });
     this._animPrefix = 'idle';

@@ -97,12 +97,12 @@ export default class BattleScene extends Phaser.Scene {
         ) => {
           let bullets;
           let enemies;
-          if (bodyA.label === 'bullet' && bodyB.label === 'enemy_body') {
-            bullets = this.bulletGroup?.getMatching('body', bodyA);
+          if (bodyA.label === 'bullet_sensor' && bodyB.label === 'enemy_body') {
+            bullets = this.bulletGroup?.getMatching('body', bodyA.parent);
             enemies = this.enemyGroup?.getMatching('body', bodyB.parent);
           }
-          if (bodyB.label === 'bullet' && bodyA.label === 'enemy_body') {
-            bullets = this.bulletGroup?.getMatching('body', bodyB);
+          if (bodyB.label === 'bullet_sensor' && bodyA.label === 'enemy_body') {
+            bullets = this.bulletGroup?.getMatching('body', bodyB.parent);
             enemies = this.enemyGroup?.getMatching('body', bodyA.parent);
           }
 
@@ -125,9 +125,10 @@ export default class BattleScene extends Phaser.Scene {
           bodyB: MatterJS.BodyType
         ) => {
           let isAttacked = false;
-          if (bodyA.label === 'enemy_body' && bodyB.label === 'blue_human_body') {
+          if (bodyA.label === 'enemy_body' && bodyB.label === 'player_body') {
             isAttacked = true;
-          } else if (bodyB.label === 'enemy_body' && bodyA.label === 'blue_human_body') {
+          }
+          if (bodyB.label === 'enemy_body' && bodyA.label === 'player_body') {
             isAttacked = true;
           }
           // 全体公開イベントを発火させ、playerのHPを減らす
