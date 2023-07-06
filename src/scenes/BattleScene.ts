@@ -5,7 +5,7 @@ import Blue from '~/components/characters/Blue';
 import Player from '~/components/Player';
 import EnemyPool from '~/components/enemies/EnemyPool';
 import Droid from '~/components/characters/Droid';
-import Map1 from '~/maps/Map1';
+import Map1 from '~/components/maps/Map1';
 import { IPlayer } from '~/components/interfaces';
 import eventsCenter from '~/events/EventsCenter';
 import Rocket from '~/components/bullets/Rocket';
