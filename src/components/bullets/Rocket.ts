@@ -13,7 +13,7 @@ export default class Rocket extends BaseBullet implements IBulletBody {
 
   constructor(scene: Phaser.Scene, x: number, y: number, label: string = 'bullet') {
     super(scene);
-    const sensor = this.bodies.circle(x, y, 16, {
+    const sensor = this.bodies.rectangle(x, y, 6, 12, {
       label: `${label}_sensor`,
       isSensor: true,
     });
