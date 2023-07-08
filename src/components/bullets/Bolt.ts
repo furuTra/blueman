@@ -6,6 +6,10 @@ import { TBulletKey } from './types';
 import BaseBullet from './BaseBullet';
 
 export default class Bolt extends BaseBullet implements IBulletBody {
+  readonly attack = 5;
+
+  readonly intervalTime = 50;
+
   readonly bodyKey: TBulletKey = 'bolt';
 
   readonly bodyType: MatterJS.BodyType;
