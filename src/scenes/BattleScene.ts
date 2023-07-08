@@ -11,6 +11,8 @@ import eventsCenter from '~/events/EventsCenter';
 import Rocket from '~/components/bullets/Rocket';
 import { GreenSoldier, GreenWarrior } from '~/components/characters/green';
 import { TBodyKey } from '~/components/characters/types';
+import { IBullet } from '~/components/bullets/interfaces';
+import { IEnemy } from '~/components/enemies/interfaces';
 
 export default class BattleScene extends Phaser.Scene {
   private bulletGroup?: IBulletPool;
@@ -102,8 +104,8 @@ export default class BattleScene extends Phaser.Scene {
           bodyA: MatterJS.BodyType,
           bodyB: MatterJS.BodyType
         ) => {
-          let bullets;
-          let enemies;
+          let bullets: IBullet[] | undefined;
+          let enemies: IEnemy[] | undefined;
           if (bodyA.label === 'bullet_sensor' && bodyB.label === 'enemy_body') {
             bullets = this.bulletGroup?.getMatching('body', bodyA.parent);
             enemies = this.enemyGroup?.getMatching('body', bodyB.parent);
@@ -113,14 +115,16 @@ export default class BattleScene extends Phaser.Scene {
             enemies = this.enemyGroup?.getMatching('body', bodyA.parent);
           }
 
+          let actBullet: IBullet;
           if (bullets)
             bullets.map((bullet) => {
+              actBullet = bullet;
               this.bulletGroup?.destroyBullet(bullet);
             });
 
           if (enemies)
             enemies.map((enemy) => {
-              this.enemyGroup?.reduceHP(enemy);
+              this.enemyGroup?.reduceHP(enemy, actBullet.attack);
             });
         }
       )
@@ -171,8 +175,8 @@ export default class BattleScene extends Phaser.Scene {
     });
 
     if (this.player.isMouseDown && time > this._lastFired) {
-      this.fireBullet(this.player.x, this.player.y);
-      this._lastFired = time + 80;
+      const bullet = this.fireBullet(this.player.x, this.player.y);
+      this._lastFired = time + bullet!.intervalTime;
     }
   }
 
@@ -180,9 +184,7 @@ export default class BattleScene extends Phaser.Scene {
     if (typeof this.bulletGroup === 'undefined' || typeof this.player === 'undefined') {
       return null;
     }
-
-    const bullet = this.bulletGroup.fire({ x, y }, this.player.mouse, 'rocket');
-
+    const bullet: IBullet = this.bulletGroup.fire({ x, y }, this.player.mouse, 'rocket');
     return bullet;
   }
 }
