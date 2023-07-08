@@ -1,0 +1,144 @@
+{
+  "anims": [
+    {
+      "key": "green_soldier_death",
+      "type": "frames",
+      "repeat": -1,
+      "frameRate": 12,
+      "frames": [
+        {
+          "key": "green",
+          "frame": "players_green_x2_40"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_41"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_42"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_43"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_44"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_45"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_46"
+        }
+      ]
+    },
+    {
+      "key": "green_soldier_attack",
+      "type": "frames",
+      "repeat": -1,
+      "frameRate": 12,
+      "frames": [
+        {
+          "key": "green",
+          "frame": "players_green_x2_32"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_33"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_34"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_35"
+        }
+      ]
+    },
+    {
+      "key": "green_soldier_move",
+      "type": "frames",
+      "repeat": -1,
+      "frameRate": 12,
+      "frames": [
+        {
+          "key": "green",
+          "frame": "players_green_x2_24"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_25"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_26"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_27"
+        }
+      ]
+    },
+    {
+      "key": "green_soldier_reload",
+      "type": "frames",
+      "repeat": -1,
+      "frameRate": 12,
+      "frames": [
+        {
+          "key": "green",
+          "frame": "players_green_x2_16"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_17"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_18"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_19"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_20"
+        }
+      ]
+    },
+    {
+      "key": "green_soldier_talk",
+      "type": "frames",
+      "repeat": -1,
+      "frameRate": 12,
+      "frames": [
+        {
+          "key": "green",
+          "frame": "players_green_x2_8"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_9"
+        }
+      ]
+    },
+    {
+      "key": "green_soldier_idle",
+      "type": "frames",
+      "repeat": -1,
+      "frameRate": 12,
+      "frames": [
+        {
+          "key": "green",
+          "frame": "players_green_x2_0"
+        }
+      ]
+    }
+  ]
+}
