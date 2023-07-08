@@ -1,0 +1,144 @@
+{
+  "anims": [
+    {
+      "key": "green_warrior_death",
+      "type": "frames",
+      "repeat": -1,
+      "frameRate": 12,
+      "frames": [
+        {
+          "key": "green",
+          "frame": "players_green_x2_96"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_97"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_98"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_99"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_100"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_101"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_102"
+        }
+      ]
+    },
+    {
+      "key": "green_warrior_attack",
+      "type": "frames",
+      "repeat": -1,
+      "frameRate": 12,
+      "frames": [
+        {
+          "key": "green",
+          "frame": "players_green_x2_88"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_89"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_90"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_91"
+        }
+      ]
+    },
+    {
+      "key": "green_warrior_move",
+      "type": "frames",
+      "repeat": -1,
+      "frameRate": 12,
+      "frames": [
+        {
+          "key": "green",
+          "frame": "players_green_x2_80"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_81"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_82"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_83"
+        }
+      ]
+    },
+    {
+      "key": "green_warrior_reload",
+      "type": "frames",
+      "repeat": -1,
+      "frameRate": 12,
+      "frames": [
+        {
+          "key": "green",
+          "frame": "players_green_x2_72"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_73"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_74"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_75"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_76"
+        }
+      ]
+    },
+    {
+      "key": "green_warrior_talk",
+      "type": "frames",
+      "repeat": -1,
+      "frameRate": 12,
+      "frames": [
+        {
+          "key": "green",
+          "frame": "players_green_x2_64"
+        },
+        {
+          "key": "green",
+          "frame": "players_green_x2_65"
+        }
+      ]
+    },
+    {
+      "key": "green_warrior_idle",
+      "type": "frames",
+      "repeat": -1,
+      "frameRate": 12,
+      "frames": [
+        {
+          "key": "green",
+          "frame": "players_green_x2_56"
+        }
+      ]
+    }
+  ]
+}
