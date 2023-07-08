@@ -9,6 +9,8 @@ import Map1 from '~/components/maps/Map1';
 import { IPlayer } from '~/components/interfaces';
 import eventsCenter from '~/events/EventsCenter';
 import Rocket from '~/components/bullets/Rocket';
+import { GreenSoldier, GreenWarrior } from '~/components/characters/green';
+import { TBodyKey } from '~/components/characters/types';
 
 export default class BattleScene extends Phaser.Scene {
   private bulletGroup?: IBulletPool;
@@ -33,6 +35,8 @@ export default class BattleScene extends Phaser.Scene {
     Blue.preload(this);
     Droid.preload(this);
     Map1.preload(this);
+    GreenWarrior.preload(this);
+    GreenSoldier.preload(this);
   }
 
   init() {
@@ -77,7 +81,10 @@ export default class BattleScene extends Phaser.Scene {
       callback: () => {
         const posX = Phaser.Math.Between(this.worldWidthEnd - 64, this.worldWidthEnd);
         const posY = Phaser.Math.Between(64, this.worldHeightEnd - 64);
-        this.enemyGroup?.spawn({ x: posX, y: posY }, 'droid');
+        // :FIXME: このままでは、最初に出現する敵のソートで固定されてしまう。
+        const characters: TBodyKey[] = ['green_warrior', 'green_soldier', 'droid'];
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        this.enemyGroup?.spawn({ x: posX, y: posY }, characters[randomIndex]);
       },
     });
 
@@ -156,7 +163,8 @@ export default class BattleScene extends Phaser.Scene {
 
     this.enemyGroup?.children.iterate((enemy) => {
       if (enemy instanceof Phaser.Physics.Matter.Sprite) {
-        if (enemy.x < 16) {
+        // 敵キャラの身体の幅によって、画面から消える範囲が異なる。
+        if (enemy.x < enemy.width / 2) {
           this.enemyGroup?.despawn(enemy);
         }
       }

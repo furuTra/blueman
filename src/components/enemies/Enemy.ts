@@ -16,6 +16,8 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite implements IEnem
     return this._health;
   }
 
+  readonly charactorKey: TBodyKey;
+
   readonly charactor: ICharacter;
 
   constructor(
@@ -44,9 +46,11 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite implements IEnem
       yoyo: true,
     });
 
+    this.charactorKey = key;
     const charactor = getCharacterLists(scene, x, y, 'enemy').get(key);
     this.charactor = charactor!();
     this.setExistingBody(this.charactor.bodyType);
+    this.setFlipX(this.charactor.isFlip);
 
     this.startTween();
   }

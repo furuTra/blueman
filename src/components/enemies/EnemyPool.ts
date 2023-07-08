@@ -18,7 +18,7 @@ export default class EnemyPool extends Phaser.GameObjects.Group {
 
     enemy.setFixedRotation();
 
-    enemy.anims.play({ key: `${key}_move` }, true);
+    enemy.anims.play({ key: `${enemy.charactorKey}_move` }, true);
 
     const spawnExisting = this.countActive(false) > 0;
     if (spawnExisting) {
