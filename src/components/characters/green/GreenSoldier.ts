@@ -13,6 +13,8 @@ export default class GreenSoldier extends BaseCharacter implements ICharacter {
 
   readonly bodyType: MatterJS.BodyType;
 
+  readonly hpValue = 60;
+
   get animKey(): string {
     return `${this.bodyKey}_${this.animPrefix}`;
   }

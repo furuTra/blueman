@@ -32,12 +32,21 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite implements IEnem
     };
     super(scene.matter.world, x, y, key, '', Object.assign(defaults, config));
 
+    this.charactorKey = key;
+    const charactor = getCharacterLists(scene, x, y, 'enemy').get(key);
+    this.charactor = charactor!();
+
     this._nameTag = scene.add.text(x, y, `enemy_${Math.floor(this.x)}`, {
       font: '12px Arial',
       color: '#2f4f4f',
     });
 
-    this._health = new HPBar(scene, { x: -32, y: -32 });
+    this._health = new HPBar(
+      scene,
+      { x: -32, y: -32 },
+      this.charactor.hpValue,
+      this.charactor.hpValue
+    );
 
     this._tween = this.scene.tweens.create({
       targets: this,
@@ -46,9 +55,6 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite implements IEnem
       yoyo: true,
     });
 
-    this.charactorKey = key;
-    const charactor = getCharacterLists(scene, x, y, 'enemy').get(key);
-    this.charactor = charactor!();
     this.setExistingBody(this.charactor.bodyType);
     this.setFlipX(this.charactor.isFlip);
 

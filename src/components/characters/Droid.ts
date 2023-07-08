@@ -13,6 +13,8 @@ export default class Droid extends BaseCharacter implements ICharacter {
 
   readonly bodyType: MatterJS.BodyType;
 
+  readonly hpValue = 200;
+
   get animKey(): string {
     return `${this.bodyKey}_${this.animPrefix}`;
   }
