@@ -152,7 +152,7 @@ export default class BattleScene extends Phaser.Scene {
     if (typeof this.player === 'undefined') return;
     this.player.update(delta);
 
-    Phaser.Actions.IncX(this.enemyGroup!.getChildren(), -0.5);
+    // Phaser.Actions.IncX(this.enemyGroup!.getChildren(), -0.5);
 
     this.bulletGroup!.children.iterate((bullet) => {
       if (bullet instanceof Phaser.Physics.Matter.Sprite) {
@@ -167,6 +167,9 @@ export default class BattleScene extends Phaser.Scene {
 
     this.enemyGroup?.children.iterate((enemy) => {
       if (enemy instanceof Phaser.Physics.Matter.Sprite) {
+        // 追いかける機能を追加
+        const xy = this.hominig(enemy.x, enemy.y);
+        enemy.setVelocity(xy.x, xy.y);
         // 敵キャラの身体の幅によって、画面から消える範囲が異なる。
         if (enemy.x < enemy.width / 2) {
           this.enemyGroup?.despawn(enemy);
@@ -178,6 +181,14 @@ export default class BattleScene extends Phaser.Scene {
       const bullet = this.fireBullet(this.player.x, this.player.y);
       this._lastFired = time + bullet!.intervalTime;
     }
+  }
+
+  private hominig(x: number, y: number) {
+    if (!this.player) return { x: 0, y: 0 };
+    const targetAngle = Phaser.Math.Angle.Between(x, y, this.player.x, this.player.y);
+    const vx = Math.cos(targetAngle) * 1;
+    const vy = Math.sin(targetAngle) * 1;
+    return { x: vx, y: vy };
   }
 
   private fireBullet(x: number, y: number) {
