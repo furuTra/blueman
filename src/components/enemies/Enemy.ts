@@ -4,11 +4,14 @@ import { ICharacter } from '~/components/characters/interfaces';
 import { IHPBar } from '~/libs/interfaces';
 import getCharacterLists from '~/components/characters/CharacterLists';
 import { TBodyKey } from '~/components/characters/types';
+import StateMachine from '~/libs/StateMachine';
 
 export default class Enemy extends Phaser.Physics.Matter.Sprite implements IEnemy {
   private _nameTag: Phaser.GameObjects.Text;
 
   private _health: IHPBar;
+
+  private _isFlip: boolean;
 
   private _tween: Phaser.Tweens.Tween;
 
@@ -19,6 +22,8 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite implements IEnem
   readonly charactorKey: TBodyKey;
 
   readonly charactor: ICharacter;
+
+  private _stateMachine: StateMachine;
 
   constructor(
     scene: Phaser.Scene,
@@ -47,18 +52,50 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite implements IEnem
       this.charactor.hpValue,
       this.charactor.hpValue
     );
+    this._isFlip = this.charactor.isFlip;
 
     this._tween = this.scene.tweens.create({
       targets: this,
-      scale: 2,
+      scale: 1.5,
       repeat: -1,
       yoyo: true,
     });
+    this.startTween();
 
     this.setExistingBody(this.charactor.bodyType);
     this.setFlipX(this.charactor.isFlip);
-
-    this.startTween();
+    this._stateMachine = new StateMachine(this);
+    this._stateMachine
+      .addState('move', {
+        onEnter: () => {
+          this.charactor.animPrefix = 'move';
+        },
+        onUpdate: () => {
+          if (this.body.velocity.x === 0 && this.body.velocity.y === 0) {
+            this._stateMachine.setState('idle');
+          }
+          const isFlip = this._isFlip;
+          if (this.body.velocity.x > 0) {
+            this.charactor.isFlip = !isFlip;
+          } else if (this.body.velocity.y < 0) {
+            this.charactor.isFlip = isFlip;
+          }
+        },
+        onExit: () => {
+          this.charactor.animPrefix = 'idle';
+        },
+      })
+      .addState('idle', {
+        onEnter: () => {
+          this.charactor.animPrefix = 'idle';
+        },
+        onUpdate: () => {
+          if (this.body.velocity.x !== 0 || this.body.velocity.y !== 0) {
+            this._stateMachine.setState('move');
+          }
+        },
+      })
+      .setState('idle');
   }
 
   startTween() {
@@ -91,6 +128,8 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite implements IEnem
 
   preUpdate(time: number, delta: number): void {
     super.preUpdate(time, delta);
+    this._stateMachine.update(delta);
+    this.setFlipX(this.charactor.isFlip);
     this._nameTag.setPosition(this.x - 16, this.y - 16);
     this._health.setPosition(this.x, this.y);
   }
