@@ -7,6 +7,10 @@ import { TBulletKey } from './types';
 import BaseBullet from './BaseBullet';
 
 export default class Rocket extends BaseBullet implements IBulletBody {
+  readonly attack = 8;
+
+  readonly intervalTime = 100;
+
   readonly bodyKey: TBulletKey = 'rocket';
 
   readonly bodyType: MatterJS.BodyType;

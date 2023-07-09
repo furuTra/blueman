@@ -10,4 +10,5 @@ export interface IEnemy extends Phaser.Physics.Matter.Sprite {
   removeName(): void;
   showName(): void;
   despawn(): void;
+  homing(targetX: number, targetY: number): void;
 }

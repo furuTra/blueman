@@ -13,6 +13,10 @@ export default class GreenWarrior extends BaseCharacter implements ICharacter {
 
   readonly bodyType: MatterJS.BodyType;
 
+  readonly hpValue = 120;
+
+  readonly speed = 0.5;
+
   get animKey(): string {
     return `${this.bodyKey}_${this.animPrefix}`;
   }

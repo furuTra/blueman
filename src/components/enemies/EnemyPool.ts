@@ -32,8 +32,8 @@ export default class EnemyPool extends Phaser.GameObjects.Group {
     return enemy;
   }
 
-  reduceHP(enemy: IEnemy) {
-    enemy.health.decrease(10);
+  reduceHP(enemy: IEnemy, damage: number) {
+    enemy.health.decrease(damage);
     if (enemy.health.value <= 0) this.despawn(enemy);
   }
 

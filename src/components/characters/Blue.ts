@@ -13,6 +13,10 @@ export default class Blue extends BaseCharacter implements ICharacter {
 
   readonly bodyType: MatterJS.BodyType;
 
+  readonly hpValue = 60;
+
+  readonly speed = 1.5;
+
   get animKey(): string {
     return `${this.bodyKey}_${this.animPrefix}`;
   }
