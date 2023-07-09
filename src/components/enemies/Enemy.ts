@@ -82,6 +82,13 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite implements IEnem
     this.setActive(false).setVisible(false).removeInteractive();
   }
 
+  homing(targetX: number, targetY: number) {
+    const targetAngle = Phaser.Math.Angle.Between(this.x, this.y, targetX, targetY);
+    const vx = Math.cos(targetAngle) * this.charactor.speed;
+    const vy = Math.sin(targetAngle) * this.charactor.speed;
+    this.setVelocity(vx, vy);
+  }
+
   preUpdate(time: number, delta: number): void {
     super.preUpdate(time, delta);
     this._nameTag.setPosition(this.x - 16, this.y - 16);
