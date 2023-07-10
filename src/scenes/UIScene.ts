@@ -1,6 +1,8 @@
 import Phaser from 'phaser';
 import Property from '~/libs/Property';
 import eventsCenter from '~/events/EventsCenter';
+import MainHPBar from '~/libs/MainHPBar';
+import { IHPBar } from '~/libs/interfaces';
 
 export default class UIScene extends Phaser.Scene {
   private _hpBarPos = { x: 5, y: 25 };
@@ -11,7 +13,7 @@ export default class UIScene extends Phaser.Scene {
 
   private _playerName?: Phaser.GameObjects.Text;
 
-  private _playerHPBar?: Phaser.GameObjects.Graphics;
+  private _playerHPBar?: IHPBar;
 
   private _playerHP?: Phaser.GameObjects.Text;
 
@@ -20,41 +22,21 @@ export default class UIScene extends Phaser.Scene {
   }
 
   init() {
-    this._property = this.registry.get('player');
-    this._playerHPBar = this.add.graphics();
+    const property: Property = this.registry.get('player');
+    this._property = property;
+    this._playerHPBar = new MainHPBar(
+      this,
+      { x: this._hpBarPos.x, y: this._hpBarPos.y },
+      this._property.hp,
+      this._property.maxHp
+    );
     this.createPlayerHeader();
     this.createPlayerHP();
   }
 
-  draw() {
-    if (!this._property || !this._playerHPBar) return;
-    this._playerHPBar.clear();
-    const healthBarLength = 480;
-    const healthBarHeight = 20;
-    const perHealth = this._property.hp / this._property.maxHp;
-    this._playerHPBar
-      .fillStyle(0x4d4d4d)
-      .fillRect(this._hpBarPos.x, this._hpBarPos.y, healthBarLength, healthBarHeight);
-    this._playerHPBar.fillStyle(0x80ff80);
-    if (perHealth <= 0.5) {
-      // Health(Warn)
-      this._playerHPBar.fillStyle(0xffc14d);
-    }
-    if (perHealth <= 0.2) {
-      // Health(Danger)
-      this._playerHPBar.fillStyle(0xff6666);
-    }
-    this._playerHPBar.fillRect(
-      this._hpBarPos.x + 1,
-      this._hpBarPos.y + 1,
-      perHealth * (healthBarLength - 2),
-      healthBarHeight - 2
-    );
-  }
-
   create() {
     this.createPlayerHeader();
-    this.draw();
+    this._playerHPBar?.init();
 
     // HPを減らすイベントを全体に公開
     eventsCenter.on('decrease-player-hp', this.decrease, this);
@@ -97,6 +79,6 @@ export default class UIScene extends Phaser.Scene {
     if (!this._property) return;
     this._property.hp -= amount;
     if (this._property.hp < 0) this._property.hp = 0;
-    this.draw();
+    this._playerHPBar?.decrease(amount);
   }
 }
