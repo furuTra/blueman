@@ -3,6 +3,8 @@ import Property from '~/libs/Property';
 import eventsCenter from '~/events/EventsCenter';
 import MainHPBar from '~/libs/MainHPBar';
 import { IHPBar } from '~/libs/interfaces';
+import MenuScene from './MenuScene';
+import GearIcon from '@assets/icons/gear.png';
 
 export default class UIScene extends Phaser.Scene {
   private _hpBarPos = { x: 5, y: 25 };
@@ -21,6 +23,10 @@ export default class UIScene extends Phaser.Scene {
     super({ key: 'ui_scene' });
   }
 
+  preload() {
+    this.load.image('gear', GearIcon);
+  }
+
   init() {
     const property: Property = this.registry.get('player');
     this._property = property;
@@ -37,6 +43,19 @@ export default class UIScene extends Phaser.Scene {
   create() {
     this.createPlayerHeader();
     this._playerHPBar?.init();
+
+    this.add
+      .image(this.sys.canvas.width * 0.9, 5, 'gear')
+      .setOrigin(0)
+      .setInteractive()
+      .on(
+        'pointerup',
+        function (this: Phaser.Scene) {
+          this.scene.add('menu_scene', new MenuScene(), true);
+          this.scene.pause('battle_scene');
+        },
+        this
+      );
 
     // HPを減らすイベントを全体に公開
     eventsCenter.on('decrease-player-hp', this.decrease, this);
