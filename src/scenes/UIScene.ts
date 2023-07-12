@@ -54,6 +54,7 @@ export default class UIScene extends Phaser.Scene {
       .on(
         'pointerup',
         function (this: Phaser.Scene) {
+          if (!this.scene.isActive('battle_scene')) return;
           this.scene.add('menu_scene', new MenuScene(), true);
           this.scene.pause('battle_scene');
         },
@@ -67,6 +68,7 @@ export default class UIScene extends Phaser.Scene {
       .on(
         'pointerup',
         function (this: Phaser.Scene) {
+          if (!this.scene.isActive('battle_scene')) return;
           this.scene.add('pause_scene', new PauseScene(), true);
           this.scene.pause('battle_scene');
         },
