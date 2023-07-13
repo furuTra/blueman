@@ -3,8 +3,10 @@ import ForwardIcon from '@assets/icons/forward.png';
 import eventsCenter from '~/events/EventsCenter';
 
 export default class PauseScene extends Phaser.Scene {
+  static readonly sceneKey = 'pause_scene';
+
   constructor() {
-    super({ key: 'pause_scene' });
+    super(PauseScene.sceneKey);
   }
 
   preload() {
@@ -29,7 +31,7 @@ export default class PauseScene extends Phaser.Scene {
         function (this: Phaser.Scene) {
           eventsCenter.emit('resume-scene');
           // 先に元シーンの再開をしないと、シーンを閉じた際にエラーになる。
-          this.scene.remove('pause_scene');
+          this.scene.remove(PauseScene.sceneKey);
         },
         this
       );

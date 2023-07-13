@@ -3,8 +3,10 @@ import CrossIcon from '@assets/icons/cross.png';
 import eventsCenter from '~/events/EventsCenter';
 
 export default class MenuScene extends Phaser.Scene {
+  static readonly sceneKey = 'menu_scene';
+
   constructor() {
-    super('menu_scene');
+    super(MenuScene.sceneKey);
   }
 
   preload() {
@@ -25,7 +27,7 @@ export default class MenuScene extends Phaser.Scene {
         function (this: Phaser.Scene) {
           eventsCenter.emit('resume-scene');
           // 先に元シーンの再開をしないと、シーンを閉じた際にエラーになる。
-          this.scene.remove('menu_scene');
+          this.scene.remove(MenuScene.sceneKey);
         },
         this
       );
