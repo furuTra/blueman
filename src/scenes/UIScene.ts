@@ -70,7 +70,7 @@ export default class UIScene extends Phaser.Scene {
         function (this: Phaser.Scene) {
           if (!this.scene.isActive('battle_scene')) return;
           this.scene.add('pause_scene', new PauseScene(), true);
-          this.scene.pause('battle_scene');
+          eventsCenter.emit('pause-scene');
         },
         this
       );

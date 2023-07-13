@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import CrossIcon from '@assets/icons/cross.png';
+import eventsCenter from '~/events/EventsCenter';
 
 export default class MenuScene extends Phaser.Scene {
   constructor() {
@@ -22,7 +23,7 @@ export default class MenuScene extends Phaser.Scene {
       .on(
         'pointerup',
         function (this: Phaser.Scene) {
-          this.scene.resume('battle_scene');
+          eventsCenter.emit('resume-scene');
           // 先に元シーンの再開をしないと、シーンを閉じた際にエラーになる。
           this.scene.remove('menu_scene');
         },
