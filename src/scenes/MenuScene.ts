@@ -21,7 +21,7 @@ export default class MenuScene extends Phaser.Scene {
     const backBoardWidth = 600;
     const backBoardHeight = 300;
     const backBoard = this.add
-      .rectangle(0, 0, backBoardWidth, backBoardHeight, 0xffcc33)
+      .rectangle(0, 0, backBoardWidth, backBoardHeight, 0xffcc33, 0.8)
       .setOrigin(0.5);
 
     // メニューテキスト
