@@ -7,8 +7,6 @@ import eventsCenter from '~/events/EventsCenter';
 export default class MenuScene extends Phaser.Scene {
   static readonly sceneKey = 'menu_scene';
 
-  private _backBoard?: Phaser.GameObjects.Graphics;
-
   constructor() {
     super(MenuScene.sceneKey);
   }
@@ -20,13 +18,26 @@ export default class MenuScene extends Phaser.Scene {
   }
 
   create() {
-    this._backBoard = this.add.graphics();
-    this._backBoard.fillStyle(0xffcc33, 1).fillRect(100, 200, 600, 300);
+    const backBoardWidth = 600;
+    const backBoardHeight = 300;
+    const backBoard = this.add
+      .rectangle(0, 0, backBoardWidth, backBoardHeight, 0xffcc33, 0.8)
+      .setOrigin(0.5);
+
+    // メニューテキスト
+    const menuText = this.add
+      .text(0, 0, 'settings is TBW...', {
+        fontFamily: 'arial',
+        fontSize: '32px',
+        color: '#ffffff',
+        align: 'center',
+      })
+      .setOrigin(0.5);
 
     // ×ボタン
     const buttonX = this.add
-      .image(650, 200, 'cross')
-      .setOrigin(0)
+      .image(0, 0, 'cross')
+      .setOrigin(0.5)
       .setInteractive()
       .on('pointerdown', this.resumeScene, this)
       .on('pointerover', () => {
@@ -35,18 +46,29 @@ export default class MenuScene extends Phaser.Scene {
       .on('pointerout', () => {
         buttonX.setTintFill(0xffffff);
       });
+    buttonX.setPosition(
+      backBoardWidth / 2 - buttonX.width / 2,
+      -(backBoardHeight / 2 - buttonX.height / 2)
+    );
 
     // キャンセルボタン
-    this.createButton(100, 450, 'cancel', 'return', () => {
+    const cancelButton = this.createButton(-100, 100, 'cancel', 'return', () => {
       this.resumeScene();
       console.log('cancel');
     });
 
     // 決定ボタン
-    this.createButton(300, 450, 'ok!', 'checkmark', () => {
+    const okButton = this.createButton(100, 100, 'ok!', 'checkmark', () => {
       this.resumeScene();
       console.log('ok');
     });
+    this.add.container(this.cameras.main.centerX, this.cameras.main.centerY, [
+      backBoard,
+      menuText,
+      buttonX,
+      cancelButton,
+      okButton,
+    ]);
   }
 
   resumeScene() {
@@ -56,17 +78,16 @@ export default class MenuScene extends Phaser.Scene {
   }
 
   createButton(x: number, y: number, label: string, icon: string, callback: () => void) {
-    const iconImg = this.add.image(0, 0, icon).setOrigin(0, 0.5);
+    const iconImg = this.add.image(0, 0, icon).setOrigin(0.5);
     const buttonText = this.add
       .text(0, 0, label, {
         fontFamily: 'arial',
         fontSize: '32px',
         color: '#ffffff',
         align: 'center',
-        backgroundColor: '#f2bd61',
       })
       .setOrigin(0, 0.5)
-      .setPadding({ left: iconImg.width })
+      .setPadding({ left: iconImg.width, right: 5 })
       .setInteractive()
       .on('pointerdown', callback)
       .on('pointerover', () => {
@@ -77,6 +98,11 @@ export default class MenuScene extends Phaser.Scene {
         buttonText.setStyle({ fill: '#ffffff' });
         iconImg.setTintFill(0xffffff);
       });
-    this.add.container(x, y, [buttonText, iconImg]);
+    const backBoard = this.add
+      .rectangle(0, 0, buttonText.width, iconImg.height, 0xf2bd61)
+      .setOrigin(0.5);
+    iconImg.setPosition(-(backBoard.width / 2 - iconImg.width / 2), 0);
+    buttonText.setPosition(-backBoard.width / 2, 0);
+    return this.add.container(x, y, [backBoard, buttonText, iconImg]);
   }
 }
