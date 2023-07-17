@@ -42,13 +42,13 @@ export default class MenuScene extends Phaser.Scene {
     );
 
     // キャンセルボタン
-    const cancelButton = this.createButton(-200, 100, 'cancel', 'return', () => {
+    const cancelButton = this.createButton(-100, 100, 'cancel', 'return', () => {
       this.resumeScene();
       console.log('cancel');
     });
 
     // 決定ボタン
-    const okButton = this.createButton(150, 100, 'ok!', 'checkmark', () => {
+    const okButton = this.createButton(100, 100, 'ok!', 'checkmark', () => {
       this.resumeScene();
       console.log('ok');
     });
