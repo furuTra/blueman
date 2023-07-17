@@ -24,6 +24,16 @@ export default class MenuScene extends Phaser.Scene {
       .rectangle(0, 0, backBoardWidth, backBoardHeight, 0xffcc33)
       .setOrigin(0.5);
 
+    // メニューテキスト
+    const menuText = this.add
+      .text(0, 0, 'settings is TBW...', {
+        fontFamily: 'arial',
+        fontSize: '32px',
+        color: '#ffffff',
+        align: 'center',
+      })
+      .setOrigin(0.5);
+
     // ×ボタン
     const buttonX = this.add
       .image(0, 0, 'cross')
@@ -54,6 +64,7 @@ export default class MenuScene extends Phaser.Scene {
     });
     this.add.container(this.cameras.main.centerX, this.cameras.main.centerY, [
       backBoard,
+      menuText,
       buttonX,
       cancelButton,
       okButton,
