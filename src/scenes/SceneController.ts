@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import Property from '~/libs/Property';
 import eventsCenter from '~/events/EventsCenter';
+import GameOverScene from '~/scenes/GameOverScene';
 
 export default class SceneController extends Phaser.Scene {
   constructor() {
@@ -28,6 +29,8 @@ export default class SceneController extends Phaser.Scene {
     eventsCenter.on('pause-scene', this.pause, this);
     // シーン再開イベントを全体に公開
     eventsCenter.on('resume-scene', this.resume, this);
+    // ゲームオーバーイベントを全体に公開
+    eventsCenter.on('gameover-scene', this.gameOver, this);
   }
 
   update() {
@@ -43,5 +46,11 @@ export default class SceneController extends Phaser.Scene {
   resume() {
     if (!this._sceneKey) return;
     this.scene.resume(this._sceneKey);
+  }
+
+  gameOver() {
+    if (!this._sceneKey) return;
+    this.scene.pause(this._sceneKey);
+    this.scene.add('gameover_scene', new GameOverScene(), true);
   }
 }

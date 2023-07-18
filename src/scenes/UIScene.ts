@@ -114,7 +114,10 @@ export default class UIScene extends Phaser.Scene {
   decrease(amount: number) {
     if (!this._property) return;
     this._property.hp -= amount;
-    if (this._property.hp < 0) this._property.hp = 0;
+    if (this._property.hp <= 0) {
+      this._property.hp = 0;
+      eventsCenter.emit('gameover-scene');
+    }
     this._playerHPBar?.decrease(amount);
   }
 }
