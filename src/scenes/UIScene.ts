@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import Property from '~/utils/Property';
+import Property from '~/models/Property';
 import eventsCenter from '~/events/EventsCenter';
 import MainHPBar from '~/utils/MainHPBar';
 import { IHPBar } from '~/utils/interfaces';
