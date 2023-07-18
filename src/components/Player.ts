@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
-import StateMachine from '~/libs/StateMachine';
-import WASD from '~/libs/WASD';
-import { IWASD } from '~/libs/interfaces';
+import StateMachine from '~/utils/StateMachine';
+import WASD from '~/utils/WASD';
+import { IWASD } from '~/utils/interfaces';
 import { IPlayer } from './interfaces';
 import { ICharacter } from './characters/interfaces';
 import { TBodyKey } from './characters/types';

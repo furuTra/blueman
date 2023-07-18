@@ -1,4 +1,4 @@
-import { IHPBar } from '~/libs/interfaces';
+import { IHPBar } from '~/utils/interfaces';
 import { TBodyKey } from '../characters/types';
 import { ICharacter } from '../characters/interfaces';
 

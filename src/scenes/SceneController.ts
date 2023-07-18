@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import Property from '~/libs/Property';
+import Property from '~/utils/Property';
 import eventsCenter from '~/events/EventsCenter';
 import GameOverScene from '~/scenes/GameOverScene';
 

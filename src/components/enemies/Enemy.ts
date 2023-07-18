@@ -1,10 +1,10 @@
-import HPBar from '~/libs/HPBar';
+import HPBar from '~/utils/HPBar';
 import { IEnemy } from './interfaces';
 import { ICharacter } from '~/components/characters/interfaces';
-import { IHPBar } from '~/libs/interfaces';
+import { IHPBar } from '~/utils/interfaces';
 import getCharacterLists from '~/components/characters/CharacterLists';
 import { TBodyKey } from '~/components/characters/types';
-import StateMachine from '~/libs/StateMachine';
+import StateMachine from '~/utils/StateMachine';
 
 export default class Enemy extends Phaser.Physics.Matter.Sprite implements IEnemy {
   private _nameTag: Phaser.GameObjects.Text;

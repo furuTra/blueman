@@ -1,8 +1,8 @@
 import Phaser from 'phaser';
-import Property from '~/libs/Property';
+import Property from '~/utils/Property';
 import eventsCenter from '~/events/EventsCenter';
-import MainHPBar from '~/libs/MainHPBar';
-import { IHPBar } from '~/libs/interfaces';
+import MainHPBar from '~/utils/MainHPBar';
+import { IHPBar } from '~/utils/interfaces';
 import MenuScene from './MenuScene';
 import PauseScene from './PauseScene';
 import GearIcon from '@assets/icons/gear.png';
