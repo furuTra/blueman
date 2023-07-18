@@ -31,11 +31,19 @@ export default class SceneController extends Phaser.Scene {
     eventsCenter.on('resume-scene', this.resume, this);
     // ゲームオーバーイベントを全体に公開
     eventsCenter.on('gameover-scene', this.gameOver, this);
+    // ゲーム再開イベントを全体に公開
+    eventsCenter.on('start-scene', this.startScene, this);
   }
 
   update() {
     // const data = this.registry.get('player');
     // console.log(data);
+  }
+
+  startScene() {
+    if (!this._sceneKey) return;
+    this.scene.start(this._sceneKey);
+    eventsCenter.emit('set-max-hp');
   }
 
   pause() {

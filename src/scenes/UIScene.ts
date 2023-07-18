@@ -80,6 +80,9 @@ export default class UIScene extends Phaser.Scene {
     this.events.on(Phaser.Scenes.Events.SHUTDOWN, () => {
       eventsCenter.off('decrease-player-hp', this.decrease, this);
     });
+
+    // HPを全快するイベントを全体に公開
+    eventsCenter.on('set-max-hp', this.setMaxHp, this);
   }
 
   createPlayerHeader() {
@@ -119,5 +122,11 @@ export default class UIScene extends Phaser.Scene {
       eventsCenter.emit('gameover-scene');
     }
     this._playerHPBar?.decrease(amount);
+  }
+
+  setMaxHp() {
+    if (!this._property) return;
+    this._property.hp = this._property.maxHp;
+    this._playerHPBar?.init();
   }
 }

@@ -1,10 +1,13 @@
 import Phaser from 'phaser';
 import HomeIcon from '@assets/icons/home.png';
 import ReturnIcon from '@assets/icons/return.png';
+import eventsCenter from '~/events/EventsCenter';
 
 export default class GameOverScene extends Phaser.Scene {
+  static readonly sceneKey = 'gameover_scene';
+
   constructor() {
-    super({ key: 'gameover_scene' });
+    super(GameOverScene.sceneKey);
   }
 
   preload() {
@@ -37,6 +40,7 @@ export default class GameOverScene extends Phaser.Scene {
       this.cameras.main.centerY + 100,
       'return',
       () => {
+        this.restartGame();
         console.log('return');
       }
     );
@@ -46,9 +50,15 @@ export default class GameOverScene extends Phaser.Scene {
       this.cameras.main.centerY + 100,
       'home',
       () => {
+        this.restartGame();
         console.log('home');
       }
     );
+  }
+
+  restartGame() {
+    eventsCenter.emit('start-scene');
+    this.scene.remove(GameOverScene.sceneKey);
   }
 
   createIcon(x: number, y: number, icon: string, callback: () => void) {
