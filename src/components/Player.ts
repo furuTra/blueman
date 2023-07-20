@@ -1,18 +1,21 @@
 import Phaser from 'phaser';
 import StateMachine from '~/utils/StateMachine';
 import WASD from '~/utils/WASD';
-import { IWASD } from '~/utils/interfaces';
+import { IWASD, IJoyStick } from '~/utils/interfaces';
 import { IPlayer } from './interfaces';
 import { ICharacter } from './characters/interfaces';
 import { TBodyKey } from './characters/types';
 import getCharacterLists from './characters/CharacterLists';
+import JoyStick from '~/utils/JoyStick';
 
 export default class Player extends Phaser.Physics.Matter.Sprite implements IPlayer {
   private cursor: Phaser.Types.Input.Keyboard.CursorKeys;
 
   private _speed: number;
 
-  private wasd: IWASD;
+  private _wasd: IWASD;
+
+  private _joyStick: IJoyStick;
 
   private _isFlip: boolean;
 
@@ -30,23 +33,25 @@ export default class Player extends Phaser.Physics.Matter.Sprite implements IPla
 
   private velocityX(): number {
     let x = 0;
+    x += this._joyStick.velocityX(this._speed);
     if (this._isMouseDown) {
       return x;
     }
     x += this.cursor?.left.isDown ? -this._speed : 0;
     x += this.cursor?.right.isDown ? this._speed : 0;
-    x += this.wasd.velocityX(this._speed);
+    x += this._wasd.velocityX(this._speed);
     return x;
   }
 
   private velocityY(): number {
     let y = 0;
+    y += this._joyStick.velocityY(this._speed);
     if (this._isMouseDown) {
       return y;
     }
     y += this.cursor?.up.isDown ? -this._speed : 0;
     y += this.cursor?.down.isDown ? this._speed : 0;
-    y += this.wasd.velocityY(this._speed);
+    y += this._wasd.velocityY(this._speed);
     return y;
   }
 
@@ -69,7 +74,8 @@ export default class Player extends Phaser.Physics.Matter.Sprite implements IPla
     this._isFlip = this.charactor.isFlip;
 
     this.cursor = this.scene.input.keyboard.createCursorKeys();
-    this.wasd = new WASD(this.scene);
+    this._wasd = new WASD(this.scene);
+    this._joyStick = new JoyStick(this.scene);
 
     this.stateMachine = new StateMachine(this);
     this.stateMachine

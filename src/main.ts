@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import BattleScene from '~/scenes/BattleScene';
 import UIScene from '~/scenes/UIScene';
 import SceneController from '~/scenes/SceneController';
+import VirtualJoystickPlugin from 'phaser3-rex-plugins/plugins/virtualjoystick-plugin.js';
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -33,5 +34,14 @@ const config: Phaser.Types.Core.GameConfig = {
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
   scene: [SceneController, BattleScene, UIScene],
+  plugins: {
+    global: [
+      {
+        plugin: VirtualJoystickPlugin,
+        key: 'rexVirtualJoystick',
+        start: true,
+      },
+    ],
+  },
 };
 export default new Phaser.Game(config);

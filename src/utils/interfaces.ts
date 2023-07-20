@@ -24,3 +24,12 @@ export interface IWASD {
   velocityX(speed: number): number;
   velocityY(speed: number): number;
 }
+
+export interface IJoyStick {
+  up: Phaser.Input.Keyboard.Key;
+  down: Phaser.Input.Keyboard.Key;
+  left: Phaser.Input.Keyboard.Key;
+  right: Phaser.Input.Keyboard.Key;
+  velocityX(speed: number): number;
+  velocityY(speed: number): number;
+}
