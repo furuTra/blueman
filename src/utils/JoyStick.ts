@@ -17,7 +17,6 @@ export default class joyStick implements IJoyStick {
     this.down = joyStick.down;
     this.left = joyStick.left;
     this.right = joyStick.right;
-    console.log(this)
   }
 
   createJoyStick(scene: Phaser.Scene) {
