@@ -20,8 +20,8 @@ export default class joyStick implements IJoyStick {
   }
 
   createJoyStick(scene: Phaser.Scene) {
-    const base = scene.add.circle(0, 0, 40, 0x888888);
-    const thumb = scene.add.circle(0, 0, 20, 0xcccccc);
+    const base = scene.add.circle(0, 0, 40, 0x888888, 0.5);
+    const thumb = scene.add.circle(0, 0, 20, 0xcccccc, 0.8);
     const joyStick = scene.plugins.get('rexVirtualJoystick') as VirtualJoyStickPlugin;
     return joyStick
       .add(scene, {
