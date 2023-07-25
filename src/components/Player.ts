@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
-import StateMachine from '~/libs/StateMachine';
-import WASD from '~/libs/WASD';
-import { IWASD } from '~/libs/interfaces';
+import StateMachine from '~/utils/StateMachine';
+import WASD from '~/utils/WASD';
+import { IWASD, IJoyStick } from '~/utils/interfaces';
 import { IPlayer } from './interfaces';
 import { ICharacter } from './characters/interfaces';
 import { TBodyKey } from './characters/types';
@@ -12,7 +12,9 @@ export default class Player extends Phaser.Physics.Matter.Sprite implements IPla
 
   private _speed: number;
 
-  private wasd: IWASD;
+  private _wasd: IWASD;
+
+  private _joyStick?: IJoyStick;
 
   private _isFlip: boolean;
 
@@ -30,23 +32,25 @@ export default class Player extends Phaser.Physics.Matter.Sprite implements IPla
 
   private velocityX(): number {
     let x = 0;
-    if (this._isMouseDown) {
+    x += this._joyStick ? this._joyStick.velocityX(this._speed) : 0;
+    if (this.isMouseDown) {
       return x;
     }
     x += this.cursor?.left.isDown ? -this._speed : 0;
     x += this.cursor?.right.isDown ? this._speed : 0;
-    x += this.wasd.velocityX(this._speed);
+    x += this._wasd.velocityX(this._speed);
     return x;
   }
 
   private velocityY(): number {
     let y = 0;
-    if (this._isMouseDown) {
+    y += this._joyStick ? this._joyStick.velocityY(this._speed) : 0;
+    if (this.isMouseDown) {
       return y;
     }
     y += this.cursor?.up.isDown ? -this._speed : 0;
     y += this.cursor?.down.isDown ? this._speed : 0;
-    y += this.wasd.velocityY(this._speed);
+    y += this._wasd.velocityY(this._speed);
     return y;
   }
 
@@ -69,7 +73,7 @@ export default class Player extends Phaser.Physics.Matter.Sprite implements IPla
     this._isFlip = this.charactor.isFlip;
 
     this.cursor = this.scene.input.keyboard.createCursorKeys();
-    this.wasd = new WASD(this.scene);
+    this._wasd = new WASD(this.scene);
 
     this.stateMachine = new StateMachine(this);
     this.stateMachine
@@ -97,7 +101,7 @@ export default class Player extends Phaser.Physics.Matter.Sprite implements IPla
         },
         onUpdate: () => {
           if (this.velocityX() !== 0 || this.velocityY() !== 0) this.stateMachine.setState('move');
-          if (this._isMouseDown) this.stateMachine.setState('attack');
+          if (this.isMouseDown) this.stateMachine.setState('attack');
         },
       })
       .addState('attack', {
@@ -105,7 +109,7 @@ export default class Player extends Phaser.Physics.Matter.Sprite implements IPla
           this.charactor.animPrefix = 'attack';
         },
         onUpdate: () => {
-          if (!this._isMouseDown) this.stateMachine.setState('idle');
+          if (!this.isMouseDown) this.stateMachine.setState('idle');
         },
         onExit: () => {
           this.charactor.animPrefix = 'idle';
@@ -115,6 +119,10 @@ export default class Player extends Phaser.Physics.Matter.Sprite implements IPla
   }
 
   create(): void {
+    // joyStickを取得
+    const joyStick: IJoyStick = this.scene.registry.get('joyStick');
+    this._joyStick = joyStick;
+
     this.scene.add.existing(this);
     this.anims.play(this.charactor.animKey);
     this.setFixedRotation();

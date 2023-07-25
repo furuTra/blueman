@@ -1,12 +1,13 @@
 import Phaser from 'phaser';
-import Property from '~/libs/Property';
+import Property from '~/models/Property';
 import eventsCenter from '~/events/EventsCenter';
-import MainHPBar from '~/libs/MainHPBar';
-import { IHPBar } from '~/libs/interfaces';
+import MainHPBar from '~/utils/MainHPBar';
+import { IHPBar } from '~/utils/interfaces';
 import MenuScene from './MenuScene';
 import PauseScene from './PauseScene';
 import GearIcon from '@assets/icons/gear.png';
 import PauseIcon from '@assets/icons/pause.png';
+import JoyStick from '~/utils/JoyStick';
 
 export default class UIScene extends Phaser.Scene {
   private _hpBarPos = { x: 5, y: 25 };
@@ -31,19 +32,23 @@ export default class UIScene extends Phaser.Scene {
   }
 
   init() {
+    // joyStickを全体に公開
+    const joyStick = new JoyStick(this);
+    this.registry.set('joyStick', joyStick);
+
     const property: Property = this.registry.get('player');
     this._property = property;
-    this._playerHPBar = new MainHPBar(
-      this,
-      { x: this._hpBarPos.x, y: this._hpBarPos.y },
-      this._property.hp,
-      this._property.maxHp
-    );
-    this.createPlayerHeader();
-    this.createPlayerHP();
   }
 
   create() {
+    this._playerHPBar = new MainHPBar(
+      this,
+      { x: this._hpBarPos.x, y: this._hpBarPos.y },
+      this._property?.hp,
+      this._property?.maxHp
+    );
+    this.createPlayerHeader();
+    this.createPlayerHP();
     this.createPlayerHeader();
     this._playerHPBar?.init();
 

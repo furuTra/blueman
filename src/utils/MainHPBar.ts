@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { IHPBar } from '~/libs/interfaces';
+import { IHPBar } from '~/utils/interfaces';
 
 export default class MainHPBar extends Phaser.GameObjects.Graphics implements IHPBar {
   private _value: number;
