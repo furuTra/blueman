@@ -1,36 +1,16 @@
 import Phaser from 'phaser';
-import { TLayer, TTileMap } from './types';
-import mapTile from '@assets/maps/map1/map.png';
 import mapJson from '@assets/maps/map1/map.json';
+import MapBase from '~/components/maps/MapBase';
 
-export default class Map1 {
-  private scene: Phaser.Scene;
-
-  private map: Phaser.Tilemaps.Tilemap;
-
-  private tileset: Phaser.Tilemaps.Tileset;
+export default class Map1 extends MapBase {
+  static readonly mapKey = 'map_1';
 
   constructor(scene: Phaser.Scene) {
-    this.scene = scene;
-    this.map = this.scene.make.tilemap({
-      key: 'map',
-    });
-    this.tileset = this.map.addTilesetImage('map', 'tiles', 96, 96, 0, 0);
+    super(scene, Map1.mapKey, mapJson)
   }
 
   static preload(scene: Phaser.Scene) {
-    scene.load.image('tiles', mapTile);
-    scene.load.tilemapTiledJSON('map', mapJson);
-  }
-
-  create() {
-    (mapJson as TTileMap).layers.forEach((layer: TLayer) => {
-      if (layer.type === 'tilelayer') {
-        const mapLayer = this.map.createLayer(layer.name, this.tileset).setCollisionByProperty({
-          collides: true,
-        });
-        this.scene.matter.world.convertTilemapLayer(mapLayer);
-      }
-    });
+    MapBase.preload(scene);
+    scene.load.tilemapTiledJSON(Map1.mapKey, mapJson);
   }
 }
