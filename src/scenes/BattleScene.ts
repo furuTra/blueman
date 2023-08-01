@@ -68,8 +68,8 @@ export default class BattleScene extends Phaser.Scene {
   }
 
   create(): void {
-    this.worldWidthEnd = this.sys.canvas.width * 2;
-    this.worldHeightEnd = this.sys.canvas.height * 2;
+    this.worldHeightEnd = 1440;
+    this.worldWidthEnd = 1920;
 
     this.bulletGroup = this.add.bulletPool();
     this.enemyGroup = this.add.enemyPool();
@@ -151,8 +151,6 @@ export default class BattleScene extends Phaser.Scene {
   update(time: number, delta: number): void {
     if (typeof this.player === 'undefined') return;
     this.player.update(delta);
-
-    // Phaser.Actions.IncX(this.enemyGroup!.getChildren(), -0.5);
 
     this.bulletGroup!.children.iterate((bullet) => {
       if (bullet instanceof Phaser.Physics.Matter.Sprite) {
