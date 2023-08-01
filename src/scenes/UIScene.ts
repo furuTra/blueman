@@ -8,6 +8,7 @@ import PauseScene from './PauseScene';
 import GearIcon from '@assets/icons/gear.png';
 import PauseIcon from '@assets/icons/pause.png';
 import JoyStick from '~/utils/JoyStick';
+import SceneController from './SceneController';
 
 export default class UIScene extends Phaser.Scene {
   private _hpBarPos = { x: 5, y: 25 };
@@ -59,9 +60,9 @@ export default class UIScene extends Phaser.Scene {
       .on(
         'pointerup',
         function (this: Phaser.Scene) {
-          if (!this.scene.isActive('battle_scene')) return;
-          this.scene.add('menu_scene', new MenuScene(), true);
-          this.scene.pause('battle_scene');
+          if (!this.scene.isActive(SceneController.currentScene)) return;
+          this.scene.add(MenuScene.sceneKey, new MenuScene(), true);
+          this.scene.pause(SceneController.currentScene);
         },
         this
       );
@@ -73,8 +74,8 @@ export default class UIScene extends Phaser.Scene {
       .on(
         'pointerup',
         function (this: Phaser.Scene) {
-          if (!this.scene.isActive('battle_scene')) return;
-          this.scene.add('pause_scene', new PauseScene(), true);
+          if (!this.scene.isActive(SceneController.currentScene)) return;
+          this.scene.add(PauseScene.sceneKey, new PauseScene(), true);
           eventsCenter.emit('pause-scene');
         },
         this

@@ -3,6 +3,7 @@ import SafeRoom1 from '~/components/maps/safeRooms/SafeRoom1';
 import { IPlayer } from '~/components/interfaces';
 import Player from '~/components/Player';
 import Blue from '~/components/characters/Blue';
+import eventsCenter from '~/events/EventsCenter';
 
 export default class SafeRoomScene extends Phaser.Scene {
   static readonly sceneKey = 'safe_room_scene';
@@ -46,7 +47,12 @@ export default class SafeRoomScene extends Phaser.Scene {
   }
 
   update(_time: number, delta: number): void {
-    if (this._player) this._player.update(delta);
-    console.log(this._player?.body.position)
+    if (this._player) {
+      this._player.update(delta);
+      // シーン移動を追加
+      if (this._player.x >= this._worldWidthEnd - 16) {
+        eventsCenter.emit('move-scene', 'battle_scene', SafeRoomScene.sceneKey);
+      }
+    }
   }
 }

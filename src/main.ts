@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import BattleScene from '~/scenes/BattleScene';
+import SafeRoomScene from '~/scenes/SafeRoomScene';
 import UIScene from '~/scenes/UIScene';
 import SceneController from '~/scenes/SceneController';
 import VirtualJoystickPlugin from 'phaser3-rex-plugins/plugins/virtualjoystick-plugin.js';
@@ -33,7 +34,7 @@ const config: Phaser.Types.Core.GameConfig = {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
-  scene: [SceneController, BattleScene, UIScene],
+  scene: [SceneController, BattleScene, SafeRoomScene, UIScene],
   plugins: {
     global: [
       {
