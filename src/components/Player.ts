@@ -72,7 +72,7 @@ export default class Player extends Phaser.Physics.Matter.Sprite implements IPla
     this._speed = 3;
     this._isFlip = this.charactor.isFlip;
 
-    this.cursor = this.scene.input.keyboard.createCursorKeys();
+    this.cursor = this.scene.input.keyboard!.createCursorKeys();
     this._wasd = new WASD(this.scene);
 
     this.stateMachine = new StateMachine(this);

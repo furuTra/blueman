@@ -7,7 +7,7 @@ export default abstract class MapBase {
 
   protected _map: Phaser.Tilemaps.Tilemap;
 
-  protected _tileset: Phaser.Tilemaps.Tileset;
+  protected _tileset: Phaser.Tilemaps.Tileset | null;
 
   protected _mapJson: TTileMap;
 
@@ -26,8 +26,10 @@ export default abstract class MapBase {
 
   create() {
     this._mapJson.layers.forEach((layer: TLayer) => {
+      if (!this._tileset) return;
       if (layer.type === 'tilelayer') {
         const mapLayer = this._map.createLayer(layer.name, this._tileset);
+        if (!mapLayer) return;
         mapLayer.setCollisionByProperty({
           collides: true,
         });

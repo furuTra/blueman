@@ -168,6 +168,7 @@ export default class BattleScene extends Phaser.Scene {
           this.bulletGroup?.destroyBullet(bullet);
         }
       }
+      return null;
     });
 
     this.enemyGroup?.children.iterate((enemy) => {
@@ -181,6 +182,7 @@ export default class BattleScene extends Phaser.Scene {
           this.enemyGroup?.despawn(enemy);
         }
       }
+      return null;
     });
 
     if (this.player.isMouseDown && time > this._lastFired) {

@@ -59,7 +59,7 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite implements IEnem
       scale: 1.5,
       repeat: -1,
       yoyo: true,
-    });
+    }) as Phaser.Tweens.Tween;
     this.startTween();
 
     this.setExistingBody(this.charactor.bodyType);
@@ -71,13 +71,13 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite implements IEnem
           this.charactor.animPrefix = 'move';
         },
         onUpdate: () => {
-          if (this.body.velocity.x === 0 && this.body.velocity.y === 0) {
+          if (this.body!.velocity.x === 0 && this.body!.velocity.y === 0) {
             this._stateMachine.setState('idle');
           }
           const isFlip = this._isFlip;
-          if (this.body.velocity.x > 0) {
+          if (this.body!.velocity.x > 0) {
             this.charactor.isFlip = !isFlip;
-          } else if (this.body.velocity.y < 0) {
+          } else if (this.body!.velocity.y < 0) {
             this.charactor.isFlip = isFlip;
           }
         },
@@ -90,7 +90,7 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite implements IEnem
           this.charactor.animPrefix = 'idle';
         },
         onUpdate: () => {
-          if (this.body.velocity.x !== 0 || this.body.velocity.y !== 0) {
+          if (this.body!.velocity.x !== 0 || this.body!.velocity.y !== 0) {
             this._stateMachine.setState('move');
           }
         },

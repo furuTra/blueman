@@ -52,6 +52,7 @@ export default class BulletPool extends Phaser.GameObjects.Group implements IBul
 
     const spawnExisting = this.countActive(false) > 0;
     if (spawnExisting) {
+      if (!bullet.body) return
       bullet.setActive(true).setVisible(true);
       bullet.world.add(bullet.body);
     }
@@ -60,6 +61,7 @@ export default class BulletPool extends Phaser.GameObjects.Group implements IBul
   }
 
   destroyBullet(bullet: IBullet) {
+    if (!bullet.body) return
     bullet.setActive(false).setVisible(false).removeInteractive();
     bullet.world.remove(bullet.body);
   }
