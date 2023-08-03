@@ -42,6 +42,13 @@ export default class BattleScene extends Phaser.Scene {
   }
 
   init() {
+    this.cameras.main.fadeIn(100);
+    const fxCamera = this.cameras.main.postFX.addPixelate(400);
+    this.add.tween({
+      targets: fxCamera,
+      duration: 1700,
+      amount: -1,
+    });
     Phaser.GameObjects.GameObjectFactory.register(
       'bulletPool',
       function (this: Phaser.GameObjects.GameObjectFactory) {
