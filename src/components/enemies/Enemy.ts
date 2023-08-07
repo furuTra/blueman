@@ -13,7 +13,7 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite implements IEnem
 
   private _isFlip: boolean;
 
-  private _tween: Phaser.Tweens.Tween;
+  private _tween?: Phaser.Tweens.Tween;
 
   get health(): IHPBar {
     return this._health;
@@ -54,14 +54,6 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite implements IEnem
     );
     this._isFlip = this.charactor.isFlip;
 
-    this._tween = this.scene.tweens.create({
-      targets: this,
-      scale: 1.5,
-      repeat: -1,
-      yoyo: true,
-    }) as Phaser.Tweens.Tween;
-    this.startTween();
-
     this.setExistingBody(this.charactor.bodyType);
     this.setFlipX(this.charactor.isFlip);
     this._stateMachine = new StateMachine(this);
@@ -99,6 +91,12 @@ export default class Enemy extends Phaser.Physics.Matter.Sprite implements IEnem
   }
 
   startTween() {
+    this._tween = this.scene.tweens.create({
+      targets: this,
+      scale: 1.5,
+      repeat: -1,
+      yoyo: true,
+    }) as Phaser.Tweens.Tween;
     this._tween.makeActive();
   }
 

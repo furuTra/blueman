@@ -24,7 +24,7 @@ export default class EnemyPool extends Phaser.GameObjects.Group {
       if (!enemy.body) return;
       enemy.setActive(true).setVisible(true);
       enemy.showName();
-      enemy.startTween();
+      // enemy.startTween();
       enemy.health.init();
       enemy.world.add(enemy.body);
     }
