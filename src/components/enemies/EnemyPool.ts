@@ -16,15 +16,15 @@ export default class EnemyPool extends Phaser.GameObjects.Group {
     const enemy: IEnemy = super.get(pos.x, pos.y, key);
     if (!enemy) return;
 
-    enemy.setFixedRotation();
-
     enemy.anims.play({ key: `${enemy.charactorKey}_move` }, true);
+    enemy.setFixedRotation();
 
     const spawnExisting = this.countActive(false) > 0;
     if (spawnExisting) {
+      if (!enemy.body) return;
       enemy.setActive(true).setVisible(true);
       enemy.showName();
-      enemy.startTween();
+      // enemy.startTween();
       enemy.health.init();
       enemy.world.add(enemy.body);
     }

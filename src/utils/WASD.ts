@@ -10,10 +10,10 @@ export default class WASD implements IWASD {
   readonly D: Phaser.Input.Keyboard.Key;
 
   constructor(scene: Phaser.Scene) {
-    this.W = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
-    this.A = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
-    this.S = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
-    this.D = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+    this.W = scene.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+    this.A = scene.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+    this.S = scene.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+    this.D = scene.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.D);
   }
 
   velocityX(speed: number): number {

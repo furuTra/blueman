@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import Property from '~/models/Property';
 import eventsCenter from '~/events/EventsCenter';
 import GameOverScene from '~/scenes/GameOverScene';
+import SafeRoomScene from './SafeRoomScene';
 
 export default class SceneController extends Phaser.Scene {
   constructor() {
@@ -11,10 +12,16 @@ export default class SceneController extends Phaser.Scene {
 
   private _property: Property;
 
-  private _sceneKey?: string;
+  static readonly firstScene = SafeRoomScene.sceneKey;
 
-  set sceneKey(sceneKey: string) {
-    this._sceneKey = sceneKey;
+  private static _currentScene = SceneController.firstScene;
+
+  static get currentScene() {
+    return SceneController._currentScene;
+  }
+
+  static set currentScene(sceneKey: string) {
+    SceneController._currentScene = sceneKey;
   }
 
   init() {
@@ -23,12 +30,14 @@ export default class SceneController extends Phaser.Scene {
 
   create() {
     this.scene.launch('ui_scene');
-    this._sceneKey = 'battle_scene';
-    this.scene.start(this._sceneKey);
+
+    this.scene.start(SceneController.currentScene);
     // シーン停止イベントを全体に公開
     eventsCenter.on('pause-scene', this.pause, this);
     // シーン再開イベントを全体に公開
     eventsCenter.on('resume-scene', this.resume, this);
+    // シーン跨ぎイベントを全体に公開
+    eventsCenter.on('move-scene', this.moveScene, this);
     // ゲームオーバーイベントを全体に公開
     eventsCenter.on('gameover-scene', this.gameOver, this);
     // ゲーム再開イベントを全体に公開
@@ -40,25 +49,31 @@ export default class SceneController extends Phaser.Scene {
     // console.log(data);
   }
 
+  moveScene(nextScene: string, currentScene: string) {
+    SceneController.currentScene = nextScene;
+    this.scene.start(nextScene);
+    this.scene.stop(currentScene);
+  }
+
   startScene() {
-    if (!this._sceneKey) return;
-    this.scene.start(this._sceneKey);
+    SceneController.currentScene = SceneController.firstScene;
+    this.scene.start(SceneController.currentScene);
     eventsCenter.emit('set-max-hp');
   }
 
   pause() {
-    if (!this._sceneKey) return;
-    this.scene.pause(this._sceneKey);
+    if (!SceneController.currentScene) return;
+    this.scene.pause(SceneController.currentScene);
   }
 
   resume() {
-    if (!this._sceneKey) return;
-    this.scene.resume(this._sceneKey);
+    if (!SceneController.currentScene) return;
+    this.scene.resume(SceneController.currentScene);
   }
 
   gameOver() {
-    if (!this._sceneKey) return;
-    this.scene.pause(this._sceneKey);
-    this.scene.add('gameover_scene', new GameOverScene(), true);
+    if (!SceneController.currentScene) return;
+    this.scene.pause(SceneController.currentScene);
+    this.scene.add(GameOverScene.sceneKey, new GameOverScene(), true);
   }
 }

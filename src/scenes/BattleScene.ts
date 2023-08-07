@@ -42,6 +42,13 @@ export default class BattleScene extends Phaser.Scene {
   }
 
   init() {
+    this.cameras.main.fadeIn(100);
+    const fxCamera = this.cameras.main.postFX.addPixelate(400);
+    this.add.tween({
+      targets: fxCamera,
+      duration: 1700,
+      amount: -1,
+    });
     Phaser.GameObjects.GameObjectFactory.register(
       'bulletPool',
       function (this: Phaser.GameObjects.GameObjectFactory) {
@@ -68,8 +75,8 @@ export default class BattleScene extends Phaser.Scene {
   }
 
   create(): void {
-    this.worldWidthEnd = this.sys.canvas.width * 2;
-    this.worldHeightEnd = this.sys.canvas.height * 2;
+    this.worldHeightEnd = 1440;
+    this.worldWidthEnd = 1920;
 
     this.bulletGroup = this.add.bulletPool();
     this.enemyGroup = this.add.enemyPool();
@@ -152,8 +159,6 @@ export default class BattleScene extends Phaser.Scene {
     if (typeof this.player === 'undefined') return;
     this.player.update(delta);
 
-    // Phaser.Actions.IncX(this.enemyGroup!.getChildren(), -0.5);
-
     this.bulletGroup!.children.iterate((bullet) => {
       if (bullet instanceof Phaser.Physics.Matter.Sprite) {
         if (bullet.x <= 0 || bullet.y <= 0) {
@@ -163,6 +168,7 @@ export default class BattleScene extends Phaser.Scene {
           this.bulletGroup?.destroyBullet(bullet);
         }
       }
+      return null;
     });
 
     this.enemyGroup?.children.iterate((enemy) => {
@@ -176,6 +182,7 @@ export default class BattleScene extends Phaser.Scene {
           this.enemyGroup?.despawn(enemy);
         }
       }
+      return null;
     });
 
     if (this.player.isMouseDown && time > this._lastFired) {
