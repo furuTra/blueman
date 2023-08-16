@@ -44,11 +44,6 @@ export default class SceneController extends Phaser.Scene {
     eventsCenter.on('start-scene', this.startScene, this);
   }
 
-  update() {
-    // const data = this.registry.get('player');
-    // console.log(data);
-  }
-
   moveScene(nextScene: string, currentScene: string) {
     SceneController.currentScene = nextScene;
     this.scene.start(nextScene);
