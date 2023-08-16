@@ -111,55 +111,54 @@ export default class BattleScene extends Phaser.Scene {
           bodyA: MatterJS.BodyType,
           bodyB: MatterJS.BodyType
         ) => {
-          let bullets: IBullet[] | undefined;
-          let enemies: IEnemy[] | undefined;
-          if (bodyA.label === 'bullet_sensor' && bodyB.label === 'enemy_body') {
-            bullets = this.bulletGroup?.getMatching('body', bodyA.parent);
-            enemies = this.enemyGroup?.getMatching('body', bodyB.parent);
-          }
-          if (bodyB.label === 'bullet_sensor' && bodyA.label === 'enemy_body') {
-            bullets = this.bulletGroup?.getMatching('body', bodyB.parent);
-            enemies = this.enemyGroup?.getMatching('body', bodyA.parent);
-          }
-
-          let actBullet: IBullet;
-          if (bullets)
-            bullets.map((bullet) => {
-              actBullet = bullet;
-              this.bulletGroup?.destroyBullet(bullet);
-            });
-
-          if (enemies)
-            enemies.map((enemy) => {
-              this.enemyGroup?.reduceHP(enemy, actBullet.attack);
-            });
-        }
-      )
-      .on(
-        'collisionstart',
-        (
-          _event: Phaser.Physics.Matter.Events.CollisionStartEvent,
-          bodyA: MatterJS.BodyType,
-          bodyB: MatterJS.BodyType
-        ) => {
-          let isAttacked = false;
-          let enemies: IEnemy[] | undefined;
-          if (bodyA.label === 'enemy_body' && bodyB.label === 'player_body') {
-            isAttacked = true;
-            enemies = this.enemyGroup?.getMatching('body', bodyA.parent);
-          }
-          if (bodyB.label === 'enemy_body' && bodyA.label === 'player_body') {
-            isAttacked = true;
-            enemies = this.enemyGroup?.getMatching('body', bodyB.parent);
-          }
-          // 全体公開イベントを発火させ、playerのHPを減らす
-          if (isAttacked && enemies) {
-            enemies.map((enemy) => {
-              eventsCenter.emit('decrease-player-hp', enemy.charactor.attack);
-            });
-          }
+          this.bulletCollision(bodyA, bodyB);
+          this.enemyCollision(bodyA, bodyB);
         }
       );
+  }
+
+  private bulletCollision(bodyA: MatterJS.BodyType, bodyB: MatterJS.BodyType) {
+    let bullets: IBullet[] | undefined;
+    let enemies: IEnemy[] | undefined;
+    if (bodyA.label === 'bullet_sensor' && bodyB.label === 'enemy_body') {
+      bullets = this.bulletGroup?.getMatching('body', bodyA.parent);
+      enemies = this.enemyGroup?.getMatching('body', bodyB.parent);
+    }
+    if (bodyB.label === 'bullet_sensor' && bodyA.label === 'enemy_body') {
+      bullets = this.bulletGroup?.getMatching('body', bodyB.parent);
+      enemies = this.enemyGroup?.getMatching('body', bodyA.parent);
+    }
+
+    let actBullet: IBullet;
+    if (bullets)
+      bullets.map((bullet) => {
+        actBullet = bullet;
+        this.bulletGroup?.destroyBullet(bullet);
+      });
+
+    if (enemies)
+      enemies.map((enemy) => {
+        this.enemyGroup?.reduceHP(enemy, actBullet.attack);
+      });
+  }
+
+  private enemyCollision(bodyA: MatterJS.BodyType, bodyB: MatterJS.BodyType) {
+    let isAttacked = false;
+    let enemies: IEnemy[] | undefined;
+    if (bodyA.label === 'enemy_body' && bodyB.label === 'player_body') {
+      isAttacked = true;
+      enemies = this.enemyGroup?.getMatching('body', bodyA.parent);
+    }
+    if (bodyB.label === 'enemy_body' && bodyA.label === 'player_body') {
+      isAttacked = true;
+      enemies = this.enemyGroup?.getMatching('body', bodyB.parent);
+    }
+    // 全体公開イベントを発火させ、playerのHPを減らす
+    if (isAttacked && enemies) {
+      enemies.map((enemy) => {
+        eventsCenter.emit('decrease-player-hp', enemy.charactor.attack);
+      });
+    }
   }
 
   update(time: number, delta: number): void {
