@@ -17,6 +17,8 @@ export default class Droid extends BaseCharacter implements ICharacter {
 
   readonly speed = 0.5;
 
+  readonly attack = 25;
+
   get animKey(): string {
     return `${this.bodyKey}_${this.animPrefix}`;
   }

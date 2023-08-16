@@ -17,6 +17,8 @@ export default class Blue extends BaseCharacter implements ICharacter {
 
   readonly speed = 1.5;
 
+  readonly attack = 10;
+
   get animKey(): string {
     return `${this.bodyKey}_${this.animPrefix}`;
   }

@@ -143,14 +143,21 @@ export default class BattleScene extends Phaser.Scene {
           bodyB: MatterJS.BodyType
         ) => {
           let isAttacked = false;
+          let enemies: IEnemy[] | undefined;
           if (bodyA.label === 'enemy_body' && bodyB.label === 'player_body') {
             isAttacked = true;
+            enemies = this.enemyGroup?.getMatching('body', bodyA.parent);
           }
           if (bodyB.label === 'enemy_body' && bodyA.label === 'player_body') {
             isAttacked = true;
+            enemies = this.enemyGroup?.getMatching('body', bodyB.parent);
           }
           // 全体公開イベントを発火させ、playerのHPを減らす
-          if (isAttacked) eventsCenter.emit('decrease-player-hp', 10);
+          if (isAttacked && enemies) {
+            enemies.map((enemy) => {
+              eventsCenter.emit('decrease-player-hp', enemy.charactor.attack);
+            });
+          }
         }
       );
   }
@@ -174,13 +181,10 @@ export default class BattleScene extends Phaser.Scene {
     this.enemyGroup?.children.iterate((enemy) => {
       if (enemy instanceof Phaser.Physics.Matter.Sprite) {
         // 追いかける機能を追加
-        if (this.player) {
-          (enemy as IEnemy).homing(this.player?.x, this.player?.y);
-        }
+        if (this.player) (enemy as IEnemy).homing(this.player?.x, this.player?.y);
+
         // 敵キャラの身体の幅によって、画面から消える範囲が異なる。
-        if (enemy.x < enemy.width / 2) {
-          this.enemyGroup?.despawn(enemy);
-        }
+        if (enemy.x < enemy.width / 2) this.enemyGroup?.despawn(enemy);
       }
       return null;
     });
