@@ -7,7 +7,7 @@ import { TAnim, TBodyKey } from '../types';
 import BaseCharacter from '../BaseCharacter';
 
 export default class GreenSoldier extends BaseCharacter implements ICharacter {
-  private _animPrefix: TAnim;
+  private _animPrefix: TAnim = 'idle';
 
   readonly bodyKey: TBodyKey = 'green_soldier';
 
@@ -59,6 +59,5 @@ export default class GreenSoldier extends BaseCharacter implements ICharacter {
     this.bodyType = this.body.create({
       parts: [body, sensor],
     });
-    this._animPrefix = 'idle';
   }
 }
