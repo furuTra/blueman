@@ -46,7 +46,11 @@ export default class GreenWarrior extends BaseCharacter implements ICharacter {
     scene.load.animation('green_warrior', GreenAnim);
   }
 
-  constructor(scene: Phaser.Scene, x: number, y: number, label: string = 'enemy') {
+  static getBody(scene: Phaser.Scene, x: number, y: number, label: string = 'enemy') {
+    return new this(scene, x, y, label);
+  }
+
+  private constructor(scene: Phaser.Scene, x: number, y: number, label: string = 'enemy') {
     super(scene);
     const body = this.bodies.rectangle(x, y + 20, 40, 40, {
       ignoreGravity: true,

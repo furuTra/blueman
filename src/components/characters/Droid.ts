@@ -46,7 +46,11 @@ export default class Droid extends BaseCharacter implements ICharacter {
     scene.load.animation('droid', DroidAnim);
   }
 
-  constructor(scene: Phaser.Scene, x: number, y: number, label: string = 'enemy') {
+  static getBody(scene: Phaser.Scene, x: number, y: number, label: string = 'enemy') {
+    return new this(scene, x, y, label);
+  }
+
+  private constructor(scene: Phaser.Scene, x: number, y: number, label: string) {
     super(scene);
     const body = this.bodies.rectangle(x, y + 20, 32, 20, {
       ignoreGravity: true,

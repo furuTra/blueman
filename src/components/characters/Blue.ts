@@ -46,7 +46,11 @@ export default class Blue extends BaseCharacter implements ICharacter {
     scene.load.animation('blue', BlueAnim);
   }
 
-  constructor(scene: Phaser.Scene, x: number, y: number, label: string = 'enemy') {
+  static getBody(scene: Phaser.Scene, x: number, y: number, label: string = 'enemy') {
+    return new this(scene, x, y, label);
+  }
+
+  private constructor(scene: Phaser.Scene, x: number, y: number, label: string = 'enemy') {
     super(scene);
     const body = this.bodies.rectangle(x, y + 20, 32, 32, {
       ignoreGravity: true,
