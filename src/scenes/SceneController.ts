@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import Property from '~/models/Property';
 import eventsCenter from '~/events/EventsCenter';
-import GameOverScene from '~/scenes/GameOverScene';
+import MoveEvents from '~/events/MoveEvents';
 import SafeRoomScene from './SafeRoomScene';
 
 export default class SceneController extends Phaser.Scene {
@@ -32,14 +32,10 @@ export default class SceneController extends Phaser.Scene {
     this.scene.launch('ui_scene');
 
     this.scene.start(SceneController.currentScene);
-    // シーン停止イベントを全体に公開
-    eventsCenter.on('pause-scene', this.pause, this);
-    // シーン再開イベントを全体に公開
-    eventsCenter.on('resume-scene', this.resume, this);
+
+    MoveEvents.createMoveEvents(this);
     // シーン跨ぎイベントを全体に公開
     eventsCenter.on('move-scene', this.moveScene, this);
-    // ゲームオーバーイベントを全体に公開
-    eventsCenter.on('gameover-scene', this.gameOver, this);
     // ゲーム再開イベントを全体に公開
     eventsCenter.on('start-scene', this.startScene, this);
   }
@@ -54,21 +50,5 @@ export default class SceneController extends Phaser.Scene {
     SceneController.currentScene = SceneController.firstScene;
     this.scene.start(SceneController.currentScene);
     eventsCenter.emit('set-max-hp');
-  }
-
-  pause() {
-    if (!SceneController.currentScene) return;
-    this.scene.pause(SceneController.currentScene);
-  }
-
-  resume() {
-    if (!SceneController.currentScene) return;
-    this.scene.resume(SceneController.currentScene);
-  }
-
-  gameOver() {
-    if (!SceneController.currentScene) return;
-    this.scene.pause(SceneController.currentScene);
-    this.scene.add(GameOverScene.sceneKey, new GameOverScene(), true);
   }
 }
