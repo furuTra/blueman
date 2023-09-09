@@ -1,16 +1,14 @@
 import Phaser from 'phaser';
-import Property from '~/models/Property';
 import eventsCenter from '~/events/EventsCenter';
 import MoveEvents from '~/events/MoveEvents';
 import SafeRoomScene from './SafeRoomScene';
 
 export default class SceneController extends Phaser.Scene {
-  constructor() {
-    super({ key: 'scene_controller' });
-    this._property = new Property();
-  }
+  static readonly sceneKey = 'scene_controller';
 
-  private _property: Property;
+  constructor() {
+    super({ key: SceneController.sceneKey });
+  }
 
   static readonly firstScene = SafeRoomScene.sceneKey;
 
@@ -22,10 +20,6 @@ export default class SceneController extends Phaser.Scene {
 
   static set currentScene(sceneKey: string) {
     SceneController._currentScene = sceneKey;
-  }
-
-  init() {
-    this.registry.set('player', this._property);
   }
 
   create() {

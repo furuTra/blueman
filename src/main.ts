@@ -4,6 +4,7 @@ import SafeRoomScene from '~/scenes/SafeRoomScene';
 import UIScene from '~/scenes/UIScene';
 import SceneController from '~/scenes/SceneController';
 import VirtualJoystickPlugin from 'phaser3-rex-plugins/plugins/virtualjoystick-plugin.js';
+import StartScene from './scenes/StartScene';
 
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
@@ -33,8 +34,12 @@ const config: Phaser.Types.Core.GameConfig = {
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
+    parent: "phaser-example",
   },
-  scene: [SceneController, BattleScene, SafeRoomScene, UIScene],
+  dom: {
+    createContainer: true
+  },
+  scene: [StartScene, SceneController, BattleScene, SafeRoomScene, UIScene],
   plugins: {
     global: [
       {
