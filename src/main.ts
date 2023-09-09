@@ -34,12 +34,20 @@ const config: Phaser.Types.Core.GameConfig = {
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
+    // Phaser内でHTMLが追加される親の要素
     parent: "phaser-example",
   },
+  // Phaser内でHTMLタグを利用する。
   dom: {
     createContainer: true
   },
-  scene: [StartScene, SceneController, BattleScene, SafeRoomScene, UIScene],
+  scene: [
+    StartScene,
+    SceneController,
+    BattleScene,
+    SafeRoomScene,
+    UIScene
+  ],
   plugins: {
     global: [
       {
