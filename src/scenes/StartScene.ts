@@ -2,6 +2,8 @@ import Phaser from "phaser";
 import Property from "~/models/Property";
 import SceneController from "./SceneController";
 
+import buttonTsx from "../tsx/Button";
+
 export default class StartScene extends Phaser.Scene {
   static readonly sceneKey = 'start_scene';
 
@@ -36,6 +38,8 @@ export default class StartScene extends Phaser.Scene {
           }
         }
       });
+
+    const but = this.add.dom(400, 500, buttonTsx() as HTMLElement);
   }
 
   private updateName(name: string) {
