@@ -2,8 +2,8 @@ import Phaser from "phaser";
 import Property from "~/models/Property";
 import SceneController from "./SceneController";
 
-import buttonTsx from "../tsx/Button";
-import InputTsx from "../tsx/Input";
+import OKButtonTsx from "~/tsx/OKButton";
+import InputNameTsx from "~/tsx/InputName";
 
 export default class StartScene extends Phaser.Scene {
   static readonly sceneKey = 'start_scene';
@@ -20,22 +20,18 @@ export default class StartScene extends Phaser.Scene {
   }
 
   create() {
-    const inputElement = this.add.dom(400, 300, InputTsx() as HTMLElement);
-    inputElement.addListener('click');
-    inputElement.on("click", (event: Event) => {
-      const targetDom = event.target as HTMLElement;
-      if (targetDom.getAttribute("name") === 'nameButton') {
-        const input = inputElement.getChildByName('name') as HTMLInputElement;
-        if (input && input.value !== '') {
-          inputElement.removeListener('click');
-          inputElement.setVisible(false);
-          this.updateName(input.value);
-          this.moveScene();
-        }
+    const inputElement = this.add.dom(400, 300, InputNameTsx() as HTMLElement);
+
+    const okButtonElement = this.add.dom(400, 400, OKButtonTsx() as HTMLElement);
+
+    okButtonElement.addListener("click").on("click", (_event: Event) => {
+      const input = inputElement.getChildByName("name") as HTMLInputElement;
+      if (input && input.value !== '') {
+        inputElement.removeListener('click').setVisible(false);
+        this.updateName(input.value);
+        this.moveScene();
       }
     });
-
-    this.add.dom(400, 500, buttonTsx() as HTMLElement);
   }
 
   private updateName(name: string) {
