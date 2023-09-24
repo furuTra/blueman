@@ -1,18 +1,22 @@
 import React from '../jsx-dom-shim';
 
 function OKButtonTsx() {
-  const buttonStyle = {
-    fontSize: 'medium',
-    height: '54px',
-    width: '54px',
-    borderRadius: '50px',
-    // border: 'none',
-  };
+  const Button = React.styled.button`
+    font-size: medium;
+    height: 54px;
+    width: 54px;
+    border-radius: 50px;
+    border: none;
+    transition: background-color 0.3s;
+    &:hover {
+      background-color: #333;
+    }
+  `;
 
   return (
-    <button style={buttonStyle}>
+    <Button>
       <span>OK</span>
-    </button>
+    </Button>
   );
 }
 export default OKButtonTsx;
