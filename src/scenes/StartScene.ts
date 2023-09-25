@@ -23,6 +23,13 @@ export default class StartScene extends Phaser.Scene {
     const inputElement = this.add.dom(400, 300, InputNameTsx() as HTMLElement);
 
     const okButtonElement = this.add.dom(400, 400, OKButtonTsx() as HTMLElement);
+    okButtonElement.addListener("pointerover").on("pointerover", () => {
+      (okButtonElement.node as HTMLInputElement).style.backgroundColor = "#e0ff44";
+      (okButtonElement.node as HTMLInputElement).style.transition = "background-color 0.5s ease";
+    });
+    okButtonElement.addListener("pointerout").on("pointerout", () => {
+      (okButtonElement.node as HTMLInputElement).style.backgroundColor = "#e0ffff";
+    });
 
     okButtonElement.addListener("click").on("click", (_event: Event) => {
       const input = inputElement.getChildByName("name") as HTMLInputElement;

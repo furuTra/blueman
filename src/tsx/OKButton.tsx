@@ -7,10 +7,7 @@ function OKButtonTsx() {
     width: 54px;
     border-radius: 50px;
     border: none;
-    transition: background-color 0.3s;
-    &:hover {
-      background-color: #333;
-    }
+    background-color: #e0ffff
   `;
 
   return (
