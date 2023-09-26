@@ -9,11 +9,13 @@ function InputNameTsx() {
   `;
 
   return (
-    <Input
-      type='text'
-      name='name'
-      placeholder='Enter your name'
-    />
+    <div>
+      <Input
+        type='text'
+        name='name'
+        placeholder='Enter your name'
+      />
+    </div>
   );
 }
 
