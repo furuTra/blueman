@@ -27,6 +27,7 @@
     "vite": "^4.2.0"
   },
   "dependencies": {
+    "jsx-dom": "^8.0.7",
     "phaser": "^3.60.0"
   }
 }

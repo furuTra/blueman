@@ -7,7 +7,7 @@ import { ICharacter } from './interfaces';
 import BaseCharacter from './BaseCharacter';
 
 export default class Droid extends BaseCharacter implements ICharacter {
-  private _animPrefix: TAnim;
+  private _animPrefix: TAnim = 'idle';
 
   readonly bodyKey: TBodyKey = 'droid';
 
@@ -16,6 +16,8 @@ export default class Droid extends BaseCharacter implements ICharacter {
   readonly hpValue = 200;
 
   readonly speed = 0.5;
+
+  readonly attack = 25;
 
   get animKey(): string {
     return `${this.bodyKey}_${this.animPrefix}`;
@@ -44,9 +46,12 @@ export default class Droid extends BaseCharacter implements ICharacter {
     scene.load.animation('droid', DroidAnim);
   }
 
-  constructor(scene: Phaser.Scene, x: number, y: number, label: string = 'enemy') {
+  static getBody(scene: Phaser.Scene, x: number, y: number, label: string = 'enemy') {
+    return new this(scene, x, y, label);
+  }
+
+  private constructor(scene: Phaser.Scene, x: number, y: number, label: string) {
     super(scene);
-    this._animPrefix = 'idle';
     const body = this.bodies.rectangle(x, y + 20, 32, 20, {
       ignoreGravity: true,
       restitution: 1,

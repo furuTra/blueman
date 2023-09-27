@@ -13,19 +13,22 @@ import { GreenSoldier, GreenWarrior } from '~/components/characters/green';
 import { TBodyKey } from '~/components/characters/types';
 import { IBullet } from '~/components/bullets/interfaces';
 import { IEnemy } from '~/components/enemies/interfaces';
+import { IMap } from '~/components/maps/interfaces';
 
 export default class BattleScene extends Phaser.Scene {
-  private bulletGroup?: IBulletPool;
+  private _bulletGroup?: IBulletPool;
 
-  private enemyGroup?: IEnemyPool;
+  private _enemyGroup?: IEnemyPool;
 
-  private player?: IPlayer;
+  private _player?: IPlayer;
+
+  private _map?: IMap;
 
   private _lastFired = 0;
 
-  private worldWidthEnd = 0;
+  private _worldWidthEnd = 0;
 
-  private worldHeightEnd = 0;
+  private _worldHeightEnd = 0;
 
   constructor() {
     super({ key: 'battle_scene' });
@@ -42,13 +45,6 @@ export default class BattleScene extends Phaser.Scene {
   }
 
   init() {
-    this.cameras.main.fadeIn(100);
-    const fxCamera = this.cameras.main.postFX.addPixelate(400);
-    this.add.tween({
-      targets: fxCamera,
-      duration: 1700,
-      amount: -1,
-    });
     Phaser.GameObjects.GameObjectFactory.register(
       'bulletPool',
       function (this: Phaser.GameObjects.GameObjectFactory) {
@@ -63,47 +59,58 @@ export default class BattleScene extends Phaser.Scene {
         return group;
       }
     );
+    this.initSceneAnim();
+  }
+
+  private initSceneAnim() {
+    this.cameras.main.fadeIn(100);
+    const fxCamera = this.cameras.main.postFX.addPixelate(400);
+    this.add.tween({
+      targets: fxCamera,
+      duration: 1700,
+      amount: -1,
+    });
   }
 
   private createCamera() {
-    if (this.player)
+    if (this._player)
       this.cameras.main
-        .startFollow(this.player, true)
-        .setBounds(0, 0, this.worldWidthEnd, this.worldHeightEnd);
+        .startFollow(this._player, true)
+        .setBounds(0, 0, this._worldWidthEnd, this._worldHeightEnd);
 
     return this.cameras.main;
   }
 
   create(): void {
-    this.worldHeightEnd = 1440;
-    this.worldWidthEnd = 1920;
+    this._worldHeightEnd = 1440;
+    this._worldWidthEnd = 1920;
 
-    this.bulletGroup = this.add.bulletPool();
-    this.enemyGroup = this.add.enemyPool();
+    this._bulletGroup = this.add.bulletPool();
+    this._enemyGroup = this.add.enemyPool();
 
-    const map = new Map1(this);
-    map.create();
+    this._map = new Map1(this);
+    this._map.create();
 
     this.time.addEvent({
       delay: 1000,
       loop: true,
       callback: () => {
-        const posX = Phaser.Math.Between(this.worldWidthEnd - 64, this.worldWidthEnd);
-        const posY = Phaser.Math.Between(64, this.worldHeightEnd - 64);
+        const posX = Phaser.Math.Between(this._worldWidthEnd - 64, this._worldWidthEnd);
+        const posY = Phaser.Math.Between(64, this._worldHeightEnd - 64);
         // :FIXME: このままでは、最初に出現する敵のソートで固定されてしまう。
         const characters: TBodyKey[] = ['green_warrior', 'green_soldier', 'droid'];
         const randomIndex = Math.floor(Math.random() * characters.length);
-        this.enemyGroup?.spawn({ x: posX, y: posY }, characters[randomIndex]);
+        this._enemyGroup?.spawn({ x: posX, y: posY }, characters[randomIndex]);
       },
     });
 
-    this.player = new Player(this, 'blue', 400, 300);
-    this.player.create();
+    this._player = new Player(this, 'blue', 400, 300);
+    this._player.create();
 
     this.createCamera();
 
     this.matter.world
-      .setBounds(0, 0, this.worldWidthEnd, this.worldHeightEnd)
+      .setBounds(0, 0, this._worldWidthEnd, this._worldHeightEnd)
       .on(
         'collisionstart',
         (
@@ -111,91 +118,94 @@ export default class BattleScene extends Phaser.Scene {
           bodyA: MatterJS.BodyType,
           bodyB: MatterJS.BodyType
         ) => {
-          let bullets: IBullet[] | undefined;
-          let enemies: IEnemy[] | undefined;
-          if (bodyA.label === 'bullet_sensor' && bodyB.label === 'enemy_body') {
-            bullets = this.bulletGroup?.getMatching('body', bodyA.parent);
-            enemies = this.enemyGroup?.getMatching('body', bodyB.parent);
-          }
-          if (bodyB.label === 'bullet_sensor' && bodyA.label === 'enemy_body') {
-            bullets = this.bulletGroup?.getMatching('body', bodyB.parent);
-            enemies = this.enemyGroup?.getMatching('body', bodyA.parent);
-          }
-
-          let actBullet: IBullet;
-          if (bullets)
-            bullets.map((bullet) => {
-              actBullet = bullet;
-              this.bulletGroup?.destroyBullet(bullet);
-            });
-
-          if (enemies)
-            enemies.map((enemy) => {
-              this.enemyGroup?.reduceHP(enemy, actBullet.attack);
-            });
-        }
-      )
-      .on(
-        'collisionstart',
-        (
-          _event: Phaser.Physics.Matter.Events.CollisionStartEvent,
-          bodyA: MatterJS.BodyType,
-          bodyB: MatterJS.BodyType
-        ) => {
-          let isAttacked = false;
-          if (bodyA.label === 'enemy_body' && bodyB.label === 'player_body') {
-            isAttacked = true;
-          }
-          if (bodyB.label === 'enemy_body' && bodyA.label === 'player_body') {
-            isAttacked = true;
-          }
-          // 全体公開イベントを発火させ、playerのHPを減らす
-          if (isAttacked) eventsCenter.emit('decrease-player-hp', 10);
+          this.bulletCollision(bodyA, bodyB);
+          this.enemyCollision(bodyA, bodyB);
         }
       );
   }
 
-  update(time: number, delta: number): void {
-    if (typeof this.player === 'undefined') return;
-    this.player.update(delta);
+  private bulletCollision(bodyA: MatterJS.BodyType, bodyB: MatterJS.BodyType) {
+    let bullets: IBullet[] | undefined;
+    let enemies: IEnemy[] | undefined;
+    if (bodyA.label === 'bullet_sensor' && bodyB.label === 'enemy_body') {
+      bullets = this._bulletGroup?.getMatching('body', bodyA.parent);
+      enemies = this._enemyGroup?.getMatching('body', bodyB.parent);
+    }
+    if (bodyB.label === 'bullet_sensor' && bodyA.label === 'enemy_body') {
+      bullets = this._bulletGroup?.getMatching('body', bodyB.parent);
+      enemies = this._enemyGroup?.getMatching('body', bodyA.parent);
+    }
 
-    this.bulletGroup!.children.iterate((bullet) => {
+    let actBullet: IBullet;
+    if (bullets)
+      bullets.map((bullet) => {
+        actBullet = bullet;
+        this._bulletGroup?.destroyBullet(bullet);
+      });
+
+    if (enemies)
+      enemies.map((enemy) => {
+        this._enemyGroup?.reduceHP(enemy, actBullet.attack);
+      });
+  }
+
+  private enemyCollision(bodyA: MatterJS.BodyType, bodyB: MatterJS.BodyType) {
+    let isAttacked = false;
+    let enemies: IEnemy[] | undefined;
+    if (bodyA.label === 'enemy_body' && bodyB.label === 'player_body') {
+      isAttacked = true;
+      enemies = this._enemyGroup?.getMatching('body', bodyA.parent);
+    }
+    if (bodyB.label === 'enemy_body' && bodyA.label === 'player_body') {
+      isAttacked = true;
+      enemies = this._enemyGroup?.getMatching('body', bodyB.parent);
+    }
+    // 全体公開イベントを発火させ、playerのHPを減らす
+    if (isAttacked && enemies) {
+      enemies.map((enemy) => {
+        eventsCenter.emit('decrease-player-hp', enemy.charactor.attack);
+      });
+    }
+  }
+
+  update(time: number, delta: number): void {
+    if (typeof this._player === 'undefined') return;
+    this._player.update(delta);
+
+    this._bulletGroup!.children.iterate((bullet) => {
       if (bullet instanceof Phaser.Physics.Matter.Sprite) {
         if (bullet.x <= 0 || bullet.y <= 0) {
-          this.bulletGroup?.destroyBullet(bullet);
+          this._bulletGroup?.destroyBullet(bullet);
         }
-        if (bullet.x > this.worldWidthEnd || bullet.y > this.worldHeightEnd) {
-          this.bulletGroup?.destroyBullet(bullet);
+        if (bullet.x > this._worldWidthEnd || bullet.y > this._worldHeightEnd) {
+          this._bulletGroup?.destroyBullet(bullet);
         }
       }
       return null;
     });
 
-    this.enemyGroup?.children.iterate((enemy) => {
+    this._enemyGroup?.children.iterate((enemy) => {
       if (enemy instanceof Phaser.Physics.Matter.Sprite) {
         // 追いかける機能を追加
-        if (this.player) {
-          (enemy as IEnemy).homing(this.player?.x, this.player?.y);
-        }
+        if (this._player) (enemy as IEnemy).homing(this._player?.x, this._player?.y);
+
         // 敵キャラの身体の幅によって、画面から消える範囲が異なる。
-        if (enemy.x < enemy.width / 2) {
-          this.enemyGroup?.despawn(enemy);
-        }
+        if (enemy.x < enemy.width / 2) this._enemyGroup?.despawn(enemy);
       }
       return null;
     });
 
-    if (this.player.isMouseDown && time > this._lastFired) {
-      const bullet = this.fireBullet(this.player.x, this.player.y);
+    if (this._player.isMouseDown && time > this._lastFired) {
+      const bullet = this.fireBullet(this._player.x, this._player.y);
       this._lastFired = time + bullet!.intervalTime;
     }
   }
 
   private fireBullet(x: number, y: number) {
-    if (typeof this.bulletGroup === 'undefined' || typeof this.player === 'undefined') {
+    if (typeof this._bulletGroup === 'undefined' || typeof this._player === 'undefined') {
       return null;
     }
-    const bullet: IBullet = this.bulletGroup.fire({ x, y }, this.player.mouse, 'rocket');
+    const bullet: IBullet = this._bulletGroup.fire({ x, y }, this._player.mouse, 'rocket');
     return bullet;
   }
 }

@@ -1,8 +1,9 @@
 import Phaser from 'phaser';
 import { TLayer, TTileMap } from './types';
 import mapTile from '@assets/maps/map1/map.png';
+import { IMap } from './interfaces';
 
-export default abstract class MapBase {
+export default abstract class MapBase implements IMap {
   protected _scene: Phaser.Scene;
 
   protected _map: Phaser.Tilemaps.Tilemap;

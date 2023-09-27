@@ -7,7 +7,7 @@ import { TAnim, TBodyKey } from '../types';
 import BaseCharacter from '../BaseCharacter';
 
 export default class GreenWarrior extends BaseCharacter implements ICharacter {
-  private _animPrefix: TAnim;
+  private _animPrefix: TAnim = 'idle';
 
   readonly bodyKey: TBodyKey = 'green_warrior';
 
@@ -16,6 +16,8 @@ export default class GreenWarrior extends BaseCharacter implements ICharacter {
   readonly hpValue = 120;
 
   readonly speed = 0.5;
+
+  readonly attack = 20;
 
   get animKey(): string {
     return `${this.bodyKey}_${this.animPrefix}`;
@@ -44,7 +46,11 @@ export default class GreenWarrior extends BaseCharacter implements ICharacter {
     scene.load.animation('green_warrior', GreenAnim);
   }
 
-  constructor(scene: Phaser.Scene, x: number, y: number, label: string = 'enemy') {
+  static getBody(scene: Phaser.Scene, x: number, y: number, label: string = 'enemy') {
+    return new this(scene, x, y, label);
+  }
+
+  private constructor(scene: Phaser.Scene, x: number, y: number, label: string = 'enemy') {
     super(scene);
     const body = this.bodies.rectangle(x, y + 20, 40, 40, {
       ignoreGravity: true,
@@ -59,6 +65,5 @@ export default class GreenWarrior extends BaseCharacter implements ICharacter {
     this.bodyType = this.body.create({
       parts: [body, sensor],
     });
-    this._animPrefix = 'idle';
   }
 }
