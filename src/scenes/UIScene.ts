@@ -5,10 +5,11 @@ import MainHPBar from '~/utils/MainHPBar';
 import { IHPBar } from '~/utils/interfaces';
 import MenuScene from './MenuScene';
 import PauseScene from './PauseScene';
-import GearIcon from '@assets/icons/gear.png';
-import PauseIcon from '@assets/icons/pause.png';
+
 import JoyStick from '~/utils/JoyStick';
 import SceneController from './SceneController';
+
+import ButtonHelper from "../ui/ButtonHelper";
 
 export default class UIScene extends Phaser.Scene {
   private _hpBarPos = { x: 5, y: 25 };
@@ -25,11 +26,6 @@ export default class UIScene extends Phaser.Scene {
 
   constructor() {
     super({ key: 'ui_scene' });
-  }
-
-  preload() {
-    this.load.image('gear', GearIcon);
-    this.load.image('pause', PauseIcon);
   }
 
   init() {
@@ -53,10 +49,9 @@ export default class UIScene extends Phaser.Scene {
     this.createPlayerHeader();
     this._playerHPBar?.init();
 
-    this.add
-      .image(this.sys.canvas.width * 0.9, 5, 'gear')
-      .setOrigin(0)
-      .setInteractive()
+    const settingButton = ButtonHelper.setting(this, this.sys.canvas.width * 0.9, 32);
+    settingButton
+      .addListener('pointerup')
       .on(
         'pointerup',
         function (this: Phaser.Scene) {
@@ -67,10 +62,9 @@ export default class UIScene extends Phaser.Scene {
         this
       );
 
-    this.add
-      .image(this.sys.canvas.width * 0.8, 5, 'pause')
-      .setOrigin(0)
-      .setInteractive()
+    const pauseButton = ButtonHelper.pause(this, this.sys.canvas.width * 0.8, 32);
+    pauseButton
+      .addListener('pointerup')
       .on(
         'pointerup',
         function (this: Phaser.Scene) {
