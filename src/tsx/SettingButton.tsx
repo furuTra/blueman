@@ -3,7 +3,6 @@ import GearIcon from '@assets/icons/gear.png';
 
 function SettingButtonTsx() {
   const Button = React.styled.button`
-    opacity: 0.5;
     height: 54px;
     width: 54px;
     border-radius: 50px;
