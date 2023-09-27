@@ -1,16 +1,12 @@
 import Phaser from 'phaser';
-import ForwardIcon from '@assets/icons/forward.png';
 import eventsCenter from '~/events/EventsCenter';
+import ButtonHelper from '~/ui/ButtonHelper';
 
 export default class PauseScene extends Phaser.Scene {
   static readonly sceneKey = 'pause_scene';
 
   constructor() {
     super(PauseScene.sceneKey);
-  }
-
-  preload() {
-    this.load.image('forward', ForwardIcon);
   }
 
   create() {
@@ -22,10 +18,9 @@ export default class PauseScene extends Phaser.Scene {
         align: 'center',
       })
       .setOrigin(0.5);
-    this.add
-      .image(this.sys.canvas.width / 2, this.sys.canvas.height / 2, 'forward')
-      .setOrigin(0.5)
-      .setInteractive()
+    const play = ButtonHelper.play(this, this.sys.canvas.width / 2, this.sys.canvas.height / 2 + 32);
+    play
+      .addListener('pointerup')
       .on(
         'pointerup',
         function (this: Phaser.Scene) {

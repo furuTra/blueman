@@ -2,6 +2,9 @@ import Phaser from "phaser";
 import Property from "~/models/Property";
 import SceneController from "./SceneController";
 
+import OKButtonTsx from "~/tsx/OKButton";
+import InputNameTsx from "~/tsx/InputName";
+
 export default class StartScene extends Phaser.Scene {
   static readonly sceneKey = 'start_scene';
 
@@ -16,26 +19,26 @@ export default class StartScene extends Phaser.Scene {
     this.registry.set('player', this._property);
   }
 
-  preload() {
-    this.load.html('nameform', '../assets/forms/nameform.html');
-  }
-
   create() {
-    const element = this.add.dom(400, 300).createFromCache('nameform');
-    element.addListener('click');
-    element.on(
-      'click',
-      (event: Phaser.Types.Input.EventData) => {
-        if (event.target.name === 'nameButton') {
-          const input = element.getChildByName('name');
-          if (input && input.value !== '') {
-            element.removeListener('click');
-            element.setVisible(false);
-            this.updateName(input.value);
-            this.moveScene();
-          }
-        }
-      });
+    const inputElement = this.add.dom(400, 300, InputNameTsx() as HTMLElement);
+
+    const okButtonElement = this.add.dom(400, 400, OKButtonTsx() as HTMLElement);
+    okButtonElement.addListener("pointerover").on("pointerover", () => {
+      (okButtonElement.node as HTMLInputElement).style.backgroundColor = "#e0ff44";
+      (okButtonElement.node as HTMLInputElement).style.transition = "background-color 0.5s ease";
+    });
+    okButtonElement.addListener("pointerout").on("pointerout", () => {
+      (okButtonElement.node as HTMLInputElement).style.backgroundColor = "#e0ffff";
+    });
+
+    okButtonElement.addListener("click").on("click", (_event: Event) => {
+      const input = inputElement.getChildByName("name") as HTMLInputElement;
+      if (input && input.value !== '') {
+        inputElement.removeListener('click').setVisible(false);
+        this.updateName(input.value);
+        this.moveScene();
+      }
+    });
   }
 
   private updateName(name: string) {
