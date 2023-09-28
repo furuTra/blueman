@@ -6,6 +6,21 @@ import SceneController from '~/scenes/SceneController';
 import VirtualJoystickPlugin from 'phaser3-rex-plugins/plugins/virtualjoystick-plugin.js';
 import StartScene from './scenes/StartScene';
 
+const debug = (import.meta.env.MODE === 'development') ? {
+  showAxes: false,
+  showAngleIndicator: true,
+  showVelocity: true,
+  velocityColor: 0x00aeef,
+  angleColor: 0xe81144,
+  showBody: true,
+  showStaticBody: true,
+  showSensors: true,
+  sensorFillColor: 0x0d177b,
+  sensorLineColor: 0x1327e4,
+  anchorColor: 0xefefef,
+  anchorSize: 4,
+} : undefined;
+
 const config: Phaser.Types.Core.GameConfig = {
   type: Phaser.AUTO,
   width: 800,
@@ -15,20 +30,7 @@ const config: Phaser.Types.Core.GameConfig = {
     default: 'matter',
     matter: {
       gravity: { y: 0 },
-      debug: {
-        showAxes: false,
-        showAngleIndicator: true,
-        showVelocity: true,
-        velocityColor: 0x00aeef,
-        angleColor: 0xe81144,
-        showBody: true,
-        showStaticBody: true,
-        showSensors: true,
-        sensorFillColor: 0x0d177b,
-        sensorLineColor: 0x1327e4,
-        anchorColor: 0xefefef,
-        anchorSize: 4,
-      },
+      debug
     },
   },
   scale: {
@@ -58,4 +60,6 @@ const config: Phaser.Types.Core.GameConfig = {
     ],
   },
 };
+console.log(import.meta.env.MODE)
+console.log(config)
 export default new Phaser.Game(config);
