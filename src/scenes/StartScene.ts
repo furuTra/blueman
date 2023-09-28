@@ -5,10 +5,14 @@ import SceneController from "./SceneController";
 import OKButtonTsx from "~/tsx/OKButton";
 import InputNameTsx from "~/tsx/InputName";
 
+import Title from "~/utils/Title";
+
 export default class StartScene extends Phaser.Scene {
   static readonly sceneKey = 'start_scene';
 
   private _property?: Property;
+
+  private _title?: Title;
 
   constructor() {
     super({ key: StartScene.sceneKey });
@@ -20,8 +24,10 @@ export default class StartScene extends Phaser.Scene {
   }
 
   create() {
-    const inputElement = this.add.dom(400, 300, InputNameTsx() as HTMLElement);
+    this._title = new Title(this, 400, 150, 'Blue Man');
+    this._title.create();
 
+    const inputElement = this.add.dom(400, 300, InputNameTsx() as HTMLElement);
     const okButtonElement = this.add.dom(400, 400, OKButtonTsx() as HTMLElement);
     okButtonElement.addListener("pointerover").on("pointerover", () => {
       (okButtonElement.node as HTMLInputElement).style.backgroundColor = "#e0ff44";
@@ -30,7 +36,6 @@ export default class StartScene extends Phaser.Scene {
     okButtonElement.addListener("pointerout").on("pointerout", () => {
       (okButtonElement.node as HTMLInputElement).style.backgroundColor = "#e0ffff";
     });
-
     okButtonElement.addListener("click").on("click", (_event: Event) => {
       const input = inputElement.getChildByName("name") as HTMLInputElement;
       if (input && input.value !== '') {
@@ -39,6 +44,11 @@ export default class StartScene extends Phaser.Scene {
         this.moveScene();
       }
     });
+  }
+
+  update() {
+    if (!this._title) return;
+    this._title.update();
   }
 
   private updateName(name: string) {
