@@ -60,6 +60,4 @@ const config: Phaser.Types.Core.GameConfig = {
     ],
   },
 };
-console.log(import.meta.env.MODE)
-console.log(config)
 export default new Phaser.Game(config);
